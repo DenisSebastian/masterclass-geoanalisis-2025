@@ -1,0 +1,315 @@
+/* main fonts */
+@import url("https://fonts.googleapis.com/css?family=Alegreya+Sans+SC:400,500");
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,500");
+@import url("https://fonts.googleapis.com/css?family=Fira+Mono");
+@import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css");
+@import url('https://fonts.googleapis.com/css2?family=Roboto:300,400,500&display=swap');
+
+
+.reveal .slide-background-content{
+  background-image: url("../images/Logo_CIT_UAI_Negro.png"),  url("../images/Logo UAI Gobierno.png");
+  background-size: 16%, 16%;
+  opacity: 1;
+  background-repeat: no-repeat;
+  background-position: 3% 3%, 97% 3%;
+}
+
+
+.reveal p {
+  color:#525252;
+  padding-top: 0.55em;
+  padding-bottom: 0.55em;
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  font-size: 80%;
+
+}
+
+
+.reveal dl {
+  color:#525252;
+  padding-top: 0.55em;
+  padding-bottom: 0.55em;
+  font-family: "Roboto", sans-serif;
+  font-weight: 200;
+  font-size: 80%;
+  text-align: justify;
+
+}
+
+
+.reveal .slide figure > figcaption {
+  color:#525252;
+  padding-top: 0.55em;
+  padding-bottom: 0.55em;
+  font-family: "Open Sans", sans-serif;
+  font-size: 50%;
+  text-align: justify;
+}
+
+
+.reveal .references {
+  color:#525252;
+  font-family: "Roboto", sans-serif;
+  font-weight: 100;
+  font-size: 60%;
+  letter-spacing: 0;
+
+}
+.reveal p.caption {
+  color: #969696;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 100;
+  font-size: 10%;
+  letter-spacing: 0;
+
+}
+
+
+/* ul li lists with more space */
+.reveal section ul {
+  color:#525252;
+  margin: 0;
+  padding-top: 0.55em;
+  padding-bottom: 0.55em;
+	padding-left: 30px;
+  font-size: 110%;
+}
+
+.reveal section li {
+  color:#525252;
+  margin: 0;
+  padding-top: 0.55em;
+  padding-bottom: 0.55em;
+	padding-left: 30px;
+  list-style: none;
+	background-image: url("../images/arrow.png");
+	background-repeat: no-repeat;
+	background-position: left center;
+	background-size: 20px;
+	font-size: 70%;
+	 text-align: justify;
+}
+
+.reaveal a{
+  font-family: "Open Sans", sans-serif;
+  font-weight: 100;
+  font-size: 20%;
+}
+
+
+/* code */
+.reveal code {
+  font-family: "Fira Mono";
+  font-size: 100%;
+  color: #C0249B;
+}
+
+/* img */
+.reveal section img {
+  border: none;
+  margin: 0;
+}
+
+.reveal section .imgnone {
+  margin: none;
+  background: none;
+  border: none;
+  box-shadow: none;
+}
+
+/* progress */
+.reveal .progress {
+  height: 5px;
+}
+
+.reveal .progress span {
+  background: #C0249B;
+}
+
+
+
+.reveal h2 {
+  color: #C0249B;
+  font-family: "Roboto", sans-serif;
+  word-spacing: 0.2em;
+  font-weight: bold;
+  font-size: 80%;
+
+  letter-spacing: 0.0em;
+}
+
+.reveal .quarto-title-author-name{
+  font-family: "Alegreya Sans SC", sans-serif;
+  color: #555555;
+  font-size: 50%;
+}
+
+
+.reveal[data-navigation-mode=linear] .title-slide h1 {
+  color: #C0249B;
+  font-family: "Roboto", sans-serif;
+  word-spacing: 0.2em;
+  font-weight: bold;
+  font-size: 150%;
+   text-align: center;
+}
+
+
+
+
+
+.reveal .title {
+  color: #C0249B;
+  font-family: "Roboto", sans-serif;
+  font-weight: bold;
+  font-size: 130%;
+  text-align: center;
+}
+
+.reveal .subtitle {
+  color:#525252;
+  font-family: "Roboto", sans-serif;
+  font-size: 70%;
+  font-weight: 400;
+  opacity: 0.5;
+  text-align: center;
+}
+.reveal .date {
+  font-family: "Roboto", sans-serif;
+  font-size: 40%;
+  text-align: center;
+}
+
+.reveal section .quarto-title-affiliation {
+  color: #C0249B;
+  font-size: 10%;
+}
+
+
+
+/*atribution map*/
+
+
+.reveal section .leaflet-popup-content {
+    font: 10px;
+}
+
+.reveal section .leaflet-control {
+  font-family: "Alegreya Sans SC", sans-serif;
+  font-size: 40%;
+  opacity: 1;
+}
+
+.reveal section .leaflet-control-attribution {
+  font-family: "Alegreya Sans SC", sans-serif;
+  font-size: 20%;
+
+
+}
+
+
+.reveal section .leaflet-control-layers{
+  font-family: "Alegreya Sans SC", sans-serif;
+  font-size: 30%;
+  opacity: 1;
+
+}
+
+.reveal section .mapboxgl-ctrl-attrib-inner{
+    font-family: "Alegreya Sans SC", sans-serif;
+  font-size: 30%;
+}
+.reveal section .legendTitle{
+    font-family: "Alegreya Sans SC", sans-serif;
+  font-size: 60%;
+}
+
+.reveal  .panel-tabset-tabby{
+  font-size: 70%;
+}
+
+/* columns */
+#left {
+  left:-8.33%;
+  text-align: left;
+  float: left;
+  width:50%;
+  z-index:-10;
+  font-size: 60%;
+}
+
+#right {
+  left:31.25%;
+  top: 75px;
+  float: right;
+  text-align: right;
+  z-index:-10;
+  width:50%;
+  font-size: 60%;
+}
+
+
+.reveal .size_bg_70 {
+   background-size:70%;
+}
+
+.reveal .size_bg_50 {
+   background-size:50%;
+}
+
+.reveal .size_bg_30 {
+   background-size:30%;
+}
+
+
+.reveal .centeR {
+  display:block;
+  border:none;
+  margin:auto;
+}
+.reveal .img_c{
+  background-size: 10%;
+  background-repeat: no-repeat;
+  background-position: 50% 70%;
+}
+.reveal .img_gif{
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+}
+
+.reveal .p_small{
+  color:#525252;
+  padding-top: 0.55em;
+  padding-bottom: 0.55em;
+  font-family: "Roboto", sans-serif;
+  font-size: 60%;
+  text-align: justify;
+}
+
+.reveal .p_small_tabset{
+  font-size: 80%;
+}
+
+.reveal .bg_opacity_1{
+  opacity: 0.1;
+}
+
+.reveal  .tex_center p{
+  color:black;
+  font-weight: 400;
+  padding-top: 0.55em;
+  padding-bottom: 0.55em;
+  font-family: "Roboto", sans-serif;
+  font-size: 100%;
+  text-align: center;
+}
+
+
+
+
+/*
+https://softwarefromnorth.blogspot.com/2016/02/revealjs-with-backgound-image-and.html
+
+*/

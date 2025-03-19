@@ -1,0 +1,48 @@
+/*-- scss:defaults --*/
+
+// fonts
+$font-family-sans-serif: "Palatino Linotype", "Book Antiqua", Palatino,
+  FreeSerif, serif !default;
+
+// colors
+$body-bg: #f0f1eb !default;
+$body-color: #000 !default;
+$link-color: #51483d !default;
+$selection-bg: #26351c !default;
+
+// headings
+$presentation-heading-font: "Palatino Linotype", "Book Antiqua", Palatino,
+  FreeSerif, serif !default;
+$presentation-heading-color: #383d3d !default;
+
+/*-- scss:rules --*/
+
+h2 {
+  padding-bottom: 0.55em;
+  color: #555555;
+
+}
+blockquote{
+  color: #555555;
+  font-family: "Open Sans", sans-serif;
+  font-size: 60%;
+}
+
+/* Styles for text p li */
+li {
+  color: #555555;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 100;
+  text-align : justify;
+  letter-spacing: 0;
+}
+
+code { color: #41b6c4;}
+figcaption {
+  color: #969696;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 100;
+  font-size: 50%;
+  letter-spacing: 0;
+
+}
