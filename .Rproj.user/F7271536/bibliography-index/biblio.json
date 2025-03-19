@@ -1,0 +1,292 @@
+{
+    "sources": [
+        {
+            "DOI": "10.1111/j.2517-6161.1948.tb00012.x",
+            "ISSN": "2517-6161",
+            "URL": "https://onlinelibrary.wiley.com/doi/abs/10.1111/j.2517-6161.1948.tb00012.x",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2022,
+                        11,
+                        8
+                    ]
+                ]
+            },
+            "annote": "_eprint: https://onlinelibrary.wiley.com/doi/pdf/10.1111/j.2517-6161.1948.tb00012.x",
+            "author": [
+                {
+                    "dropping-particle": "a.",
+                    "family": "P. Moran",
+                    "given": "P."
+                }
+            ],
+            "container-title": "Journal of the Royal Statistical Society: Series B (Methodological)",
+            "id": "moran_interpretation_1948",
+            "issue": "2",
+            "issued": {
+                "date-parts": [
+                    [
+                        1948
+                    ]
+                ]
+            },
+            "language": "en-US",
+            "page": "243-251",
+            "title": "The Interpretation of Statistical Maps",
+            "type": "article-journal",
+            "volume": "10"
+        },
+        {
+            "DOI": "10.1111/j.1538-4632.1995.tb00338.x",
+            "ISSN": "1538-4632",
+            "URL": "https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1538-4632.1995.tb00338.x",
+            "abstract": "The capabilities for visualization, rapid data retrieval, and manipulation in geographic information systems (GIS) have created the need for new techniques of exploratory data analysis that focus on the “spatial” aspects of the data. The identification of local patterns of spatial association is an important concern in this respect. In this paper, I outline a new general class of local indicators of spatial association (LISA) and show how they allow for the decomposition of global indicators, such as Moran’s I, into the contribution of each observation. The LISA statistics serve two purposes. On one hand, they may be interpreted as indicators of local pockets of nonstationarity, or hot spots, similar to the Gi and G*i statistics of Getis and Ord (1992). On the other hand, they may be used to assess the influence of individual locations on the magnitude of the global statistic and to identify “outliers,” as in Anselin’s Moran scatterplot (1993a). An initial evaluation of the properties of a LISA statistic is carried out for the local Moran, which is applied in a study of the spatial pattern of conflict for African countries and in a number of Monte Carlo simulations.",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2022,
+                        11,
+                        8
+                    ]
+                ]
+            },
+            "annote": "_eprint: https://onlinelibrary.wiley.com/doi/pdf/10.1111/j.1538-4632.1995.tb00338.x",
+            "author": [
+                {
+                    "family": "Anselin",
+                    "given": "Luc"
+                }
+            ],
+            "container-title": "Geographical Analysis",
+            "id": "anselin_local_1995",
+            "issue": "2",
+            "issued": {
+                "date-parts": [
+                    [
+                        1995
+                    ]
+                ]
+            },
+            "language": "en-US",
+            "page": "93-115",
+            "title": "Local Indicators of Spatial Association—LISA",
+            "type": "article-journal",
+            "volume": "27"
+        },
+        {
+            "DOI": "10.2307/143141",
+            "URL": "https://doi.org/10.2307%2F143141",
+            "author": [
+                {
+                    "family": "Tobler",
+                    "given": "W. R."
+                }
+            ],
+            "container-title": "Economic Geography",
+            "id": "Tobler_1970",
+            "issued": {
+                "date-parts": [
+                    [
+                        1970,
+                        6
+                    ]
+                ]
+            },
+            "page": "234",
+            "publisher": "JSTOR",
+            "title": "A computer movie simulating urban growth in the detroit region",
+            "type": "article-journal",
+            "volume": "46"
+        },
+        {
+            "DOI": "10.3406/homso.1974.1855",
+            "URL": "https://doi.org/10.3406%2Fhomso.1974.1855",
+            "author": [
+                {
+                    "family": "Lefebvre",
+                    "given": "Henri"
+                }
+            ],
+            "container-title": "L Homme et la société",
+            "id": "Lefebvre_1974",
+            "issue": "1",
+            "issued": {
+                "date-parts": [
+                    [
+                        1974
+                    ]
+                ]
+            },
+            "page": "15-32",
+            "publisher": "PERSEE Program",
+            "title": "La production de lespace",
+            "type": "article-journal",
+            "volume": "31"
+        },
+        {
+            "DOI": "10.4067/s0716-10182007000400014",
+            "URL": "https://doi.org/10.4067%2Fs0716-10182007000400014",
+            "author": [
+                {
+                    "family": "L",
+                    "given": "Jaime Cerda"
+                },
+                {
+                    "family": "C",
+                    "given": "Gonzalo Valdivia"
+                }
+            ],
+            "container-title": "Revista chilena de infectologı́a",
+            "id": "Cerda_L_2007",
+            "issue": "4",
+            "issued": {
+                "date-parts": [
+                    [
+                        2007,
+                        8
+                    ]
+                ]
+            },
+            "publisher": "SciELO Agencia Nacional de Investigacion y Desarrollo (ANID)",
+            "title": "John snow, la epidemia de cólera y el nacimiento de la epidemiologı́a moderna",
+            "type": "article-journal",
+            "volume": "24"
+        },
+        {
+            "DOI": "10.1080/08998280.2006.11928120",
+            "URL": "https://doi.org/10.1080%2F08998280.2006.11928120",
+            "author": [
+                {
+                    "family": "Ramsay",
+                    "given": "Michael A. E."
+                }
+            ],
+            "container-title": "Baylor University Medical Center Proceedings",
+            "id": "Ramsay_2006",
+            "issue": "1",
+            "issued": {
+                "date-parts": [
+                    [
+                        2006,
+                        1
+                    ]
+                ]
+            },
+            "page": "24-28",
+            "publisher": "Informa UK Limited",
+            "title": "John snow, MD: Anaesthetist to the queen of england and pioneer epidemiologist",
+            "title-short": "John snow, MD",
+            "type": "article-journal",
+            "volume": "19"
+        },
+        {
+            "DOI": "10.2307/2529248",
+            "URL": "https://doi.org/10.2307%2F2529248",
+            "author": [
+                {
+                    "family": "D.",
+                    "given": "F. N."
+                },
+                {
+                    "family": "Cliff",
+                    "given": "A. D."
+                },
+                {
+                    "family": "Ord",
+                    "given": "J. K."
+                }
+            ],
+            "container-title": "Biometrics",
+            "id": "Cliff_1974",
+            "issue": "4",
+            "issued": {
+                "date-parts": [
+                    [
+                        1974,
+                        12
+                    ]
+                ]
+            },
+            "page": "729",
+            "publisher": "JSTOR",
+            "title": "Spatial autocorrelation",
+            "type": "article-journal",
+            "volume": "30"
+        },
+        {
+            "DOI": "10.1111/j.1538-4632.1972.tb00475.x",
+            "URL": "https://doi.org/10.1111%2Fj.1538-4632.1972.tb00475.x",
+            "author": [
+                {
+                    "family": "Cliff",
+                    "given": "Andrew"
+                },
+                {
+                    "family": "Ord",
+                    "given": "Keith"
+                }
+            ],
+            "container-title": "Geographical Analysis",
+            "id": "Cliff_1972",
+            "issue": "3",
+            "issued": {
+                "date-parts": [
+                    [
+                        1972,
+                        7
+                    ]
+                ]
+            },
+            "page": "267-284",
+            "publisher": "Wiley",
+            "title": "Testing for spatial autocorrelation among regression residuals",
+            "type": "article-journal",
+            "volume": "4"
+        },
+        {
+            "DOI": "10.1257/aer.20190159",
+            "ISSN": "0002-8282",
+            "URL": "http://dx.doi.org/10.1257/aer.20190159",
+            "author": [
+                {
+                    "family": "Arkhangelsky",
+                    "given": "Dmitry"
+                },
+                {
+                    "family": "Athey",
+                    "given": "Susan"
+                },
+                {
+                    "family": "Hirshberg",
+                    "given": "David A."
+                },
+                {
+                    "family": "Imbens",
+                    "given": "Guido W."
+                },
+                {
+                    "family": "Wager",
+                    "given": "Stefan"
+                }
+            ],
+            "container-title": "American Economic Review",
+            "id": "Arkhangelsky_2021",
+            "issue": "12",
+            "issued": {
+                "date-parts": [
+                    [
+                        2021,
+                        12
+                    ]
+                ]
+            },
+            "page": "4088-4118",
+            "publisher": "American Economic Association",
+            "title": "Synthetic difference-in-differences",
+            "type": "article-journal",
+            "volume": "111"
+        }
+    ],
+    "project_biblios": []
+}

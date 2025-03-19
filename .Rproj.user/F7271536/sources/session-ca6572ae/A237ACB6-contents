@@ -1,0 +1,617 @@
+---
+title: "Avance de Tesis: Data Cube Explore"
+subtitle: "Sistema de Detección de Cambios en Cambios en Ambientes Naturales Protegidos utilizando CNN"
+# author: "Denis Berroeta"
+# date: "06-03-2023"
+bibliography: references.bib
+format:
+  revealjs:
+    footer: "Avances de Tesis 04 - Denis Berroeta"
+    logo: "images/logo_open_datacube.png"
+    preview-links: true
+    css: style/style.css
+    transition: slide
+    center: true
+    chalkboard: true
+    theme: default
+---
+
+# Agenda 
+
+## Agenda
+
+::: columns
+::: {.column  width="45%" .p_small}
+
+<br>
+
+-   Disponibilidad SAR Open Data Cube
+-   Área de Estudio   
+-   Comparación Métodos Convencionales (GEE vs ODC)
+-   Conclusiones  
+-   Trabajos Futuros
+-   Bibliografía 
+:::
+
+::: {.column width="5%"}
+:::
+
+::: {.column width="50%" .p_small}
+
+<br>
+
+![](images/logo_odc.png){fig-align="center" width="400"}
+
+:::
+:::
+
+
+
+# {background-image="images/diagrama_actual_2.png" background-size="75%" background-position="center"}
+
+
+# Disponibilidad SAR Open Data Cube
+
+## {background-image="images/infra_ODC.png" background-size="55%" background-position="center"}
+
+
+## Open Data Cube Chile
+
+::: columns
+
+::: {.column  width="40%" .p_small}
+
+**Objetivos**
+
+ - Explorar los datos tipo SAR del Satélite Sentinel-1 en la plataforma Data Cube Chile, además de su disponibilidad a la fecha de hoy (`r Sys.Date()`)
+
+- Destacar la necesidad de actualización de los datos disponibles ya sea por tipo, corrección, fecha o región de estudio.
+
+:::
+::: {.column width="5%"}
+:::
+
+::: {.column width="55%" .p_small}
+
+![Plataforma <https://hub.datacubechile.cl/>](images/data_cube_02.png){fig-align="center" width="500"}
+
+:::
+
+:::
+
+
+## Productos SAR Disponibles
+
+::: columns
+
+::: {.column  width="30%" .p_small}
+
+
+* `'asf_s1_grd_gamma0'`
+* `'sentinel1_grd_gamma0'`
+* `'asf_s1_rtc_grd_hd'` 
+
+
+:::
+::: {.column width="5%"}
+:::
+
+::: {.column width="65%" .p_small}
+
+![Productos disponibles SAR en Data Cube](images/dc_products_SAR.png){fig-align="center" width="800"}
+
+:::
+
+:::
+
+
+## Definición de Parámetros
+
+::: columns
+
+::: {.column  width="45%" .p_small}
+
+
+Parámetros de la _query_:
+
+* `latitude = -42.21212`
+* `longitude = -73.71519`
+* `buffer = 0.01`
+* `time = ("2016-01-01", "2023-12-31")`
+* `bands = ['vv','vh','angle']`
+
+Las coordenadas corresponden  al centroide sitio **ST_021** de una tubera intervenida por acción humana se presentó la revisión anterior.
+
+
+:::
+::: {.column width="5%"}
+:::
+
+::: {.column width="50%" .p_small}
+
+![Región de estudio para exploración de datos disponibles](images/roi_ST_021.png){fig-align="center" width="800"}
+
+:::
+
+:::
+
+
+## Datos *asf_s1_grd_gamma0*
+
+::: columns
+
+::: {.column  width="45%" .p_small}
+
+
+El producto satelital S1 *asf_s1_grd_gamma0* es el diponibiliza la mayor cantidad de imágenes en ese periodo y lugar, con un total de 338 registros.
+
+![Dataset de Datos de asf_s1_grd_gamma0](images/DataSet_asf_s1_grd_gamma0.png){fig-align="center" width="800"}
+
+:::
+::: {.column width="5%"}
+:::
+
+::: {.column width="50%" .p_small}
+
+![Visulización espacial de asf_s1_grd_gamma0](images/vis_asf_s1_grd_gamma0.png){fig-align="center" width="800"}
+
+:::
+
+:::
+
+## Datos *sentinel1_grd_gamma0*
+
+::: columns
+
+::: {.column  width="45%" .p_small}
+
+
+El producto *sentinel1_grd_gamma0* mantiene solo 4 registros de imágenes diponibles y todas del junio del 2023, como se observa a continuación:
+ 
+ 
+![Dataset de Datos de sentinel1_grd_gamma0 que mantiene 4 registros.](images/Dataset_sentinel1_grd_gamma0.png){fig-align="center" width="800"}
+
+:::
+::: {.column width="5%"}
+:::
+
+::: {.column width="50%" .p_small}
+
+
+<br>
+
+![Visulización espacial de sentinel1_grd_gamma0](images/vis_sentinel1_grd_gamma0.png){fig-align="center" width="800"}
+
+:::
+
+:::
+
+## Datos *asf_s1_rtc_grd_hd*
+ 
+
+::: columns
+
+::: {.column  width="45%" .p_small}
+
+
+ El producto satelital *asf_s1_rtc_grd_hd* **no tiene** registros de imágenes en el perodio y región de estudio
+
+:::
+::: {.column width="5%"}
+:::
+
+::: {.column width="50%" .p_small}
+
+![Dataset de Datos de asf_s1_rtc_grd_hd que no mantiene registros.](images/Dataset_asf_s1_rtc_grd_hd.png){fig-align="center" width="800"}
+
+:::
+
+:::
+
+## Resumen de Data Cube
+
+::: columns
+
+::: {.column  width="50%" .p_small}
+
+
+<br>
+
+
+* **asf_s1_grd_gamma0**: 338 imágenes entre 2016 y 2023
+* **sentinel1_grd_gamma0**: 4 imágenes de junio 2023
+* **asf_s1_rtc_grd_hd** : 0 imágenes
+
+Por lo anterior, se procedió analizar los métodos convencionales con los registros del producto satelital `asf_s1_grd_gamma0` en la región de estudio ST_021.  
+
+
+
+:::
+::: {.column width="5%"}
+:::
+
+::: {.column width="45%" .p_small}
+
+![](images/logo_odc.png){fig-align="center" width="400"}
+
+**Resolution** : `16.5, 22.2  (x, y)`
+
+**Range $T_0$** : `0.00769, 0.05964  (min, max)`
+
+**Range  $T_1$** :  `0.00394, 0.19321  (min, max)`
+
+:::
+
+:::
+
+
+
+# Área de Estudio  
+
+
+##  RBG ST_021 
+
+
+<center>
+```{r fig.align='center'}
+knitr::include_url("html/ST_021/RGB_roi.html", height = "500px")
+```
+</center>
+
+
+##  SAR ST_021 
+
+<br>
+
+<center>
+```{r fig.align='center'}
+knitr::include_url("html/ST_021/SAR_roi_sync.html", height = "800px")
+```
+</center>
+
+
+
+
+# Diferencia Directa (DD)
+
+## {background-image="images/slide_dd.png" background-size="75%" background-position="center"}
+
+
+
+
+##  DD ST_021: Diferencia Directa (GEE vs Open Data Cube)
+
+<br>
+
+<center>
+```{r fig.align='center'}
+knitr::include_url("html/ST_021/DD_roi_sync.html", height = "500px")
+```
+</center>
+
+
+
+<!-- ## DD: Segment Anything Model ([SAM](https://segment-anything.com)) 2  -->
+
+
+<!-- ::: columns -->
+
+<!-- ::: {.column  width="45%" .p_small} -->
+
+
+<!-- ![Imagen de Diferencia Directa (DD) sin referencia espacial aplicado un kernel 3x3 con la función promedio](images/ST_021/ST_021_DD_1S_SAM.png){ fig-align="center" width="500"} -->
+
+<!-- ::: -->
+<!-- ::: {.column width="5%"} -->
+<!-- ::: -->
+
+<!-- ::: {.column width="45%" .p_small} -->
+
+<!-- ![Imagen de Diferencia Directa (DD) kernel 3x3 promedio aplicado  SAM [@kirillov2023segment]](images/ST_021/ST_021_DD_1S_Fi_SAM.png){fig-align="center" width="500"} -->
+
+<!-- ::: -->
+
+<!-- ::: -->
+
+
+
+
+
+
+
+# MC: Log Ratio (LR)
+
+## {background-image="images/slide_lr.png" background-size="75%" background-position="center"}
+
+##  LR ST_021: Log Ratio (GEE vs Open Data Cube)
+
+<br>
+
+<center>
+```{r fig.align='center'}
+knitr::include_url("html/ST_021/LR_roi_sync.html", height = "500px")
+```
+</center>
+
+
+<!-- ## LR: Segment Anything Model ([SAM](https://segment-anything.com))  -->
+
+<!-- ::: columns -->
+
+<!-- ::: {.column  width="45%" .p_small} -->
+
+
+<!-- ![Imagen de Log Ratio (LR) sin referencia espacial](images/ST_021/LR.png){ fig-align="center" width="500"} -->
+
+<!-- ::: -->
+<!-- ::: {.column width="5%"} -->
+<!-- ::: -->
+
+<!-- ::: {.column width="45%" .p_small} -->
+
+<!-- ![Imagen de Log Ratio (LR) aplicado SAM [@kirillov2023segment]](images/ST_021/ST_021_LR_1S_SAM){fig-align="center" width="500"} -->
+
+<!-- ::: -->
+
+<!-- ::: -->
+
+
+# MC: Logarithmic Likelihood Ratio (LLR)
+
+## {background-image="images/slide_llr.png" background-size="75%" background-position="center"}
+
+##  LLR ST_021: Logarithmic Likelihood Ratio (GEE vs Open Data Cube)
+
+<center>
+```{r fig.align='center'}
+knitr::include_url("html/ST_021/LLR_roi_sync.html", height = "500px")
+```
+</center>
+
+
+<!-- ## LLR: Segment Anything Model ([SAM](https://segment-anything.com))  -->
+
+<!-- ::: columns -->
+
+<!-- ::: {.column  width="45%" .p_small} -->
+
+
+<!-- ![Imagen de Logarithmic Likelihood Ratio (LLR) sin referencia espacial](images/ST_021/LLR.png){ fig-align="center" width="500"} -->
+
+<!-- ::: -->
+<!-- ::: {.column width="5%"} -->
+<!-- ::: -->
+
+<!-- ::: {.column width="45%" .p_small} -->
+
+<!-- ![Imagen de Logarithmic Likelihood Ratio (LLR) aplicado SAM [@kirillov2023segment]](images/ST_021/ST_021_LLR_1S_SAM.png){fig-align="center" width="500"} -->
+
+<!-- ::: -->
+
+<!-- ::: -->
+
+# MC: Enhanced Difference Image (EDI)
+
+## {background-image="images/slide_edi.png" background-size="75%" background-position="center"}
+
+##  EDI ST_021:  Enhanced Difference Image (GEE vs Open Data Cube)
+
+<br>
+
+<center>
+```{r fig.align='center'}
+knitr::include_url("html/ST_021/EDI_roi_sync.html", height = "500px")
+```
+</center>
+
+
+<!-- ## EDI: Segment Anything Model ([SAM](https://segment-anything.com))  -->
+
+<!-- ::: columns -->
+
+<!-- ::: {.column  width="45%" .p_small} -->
+
+
+<!-- ![Imagen de Enhanced Difference Image (EDI) sin referencia espacial](images/ST_021/EDI.png){ fig-align="center" width="500"} -->
+
+<!-- ::: -->
+<!-- ::: {.column width="5%"} -->
+<!-- ::: -->
+
+<!-- ::: {.column width="45%" .p_small} -->
+
+<!-- ![Imagen de Enhanced Difference Image (EDI) aplicado SAM [@kirillov2023segment]](images/ST_021/ST_021_EDI_1S_SAM.png){fig-align="center" width="500"} -->
+
+<!-- ::: -->
+
+<!-- ::: -->
+
+
+# MC: Log Mean Ratio (LMR)
+
+
+## {background-image="images/slide_lmr.png" background-size="75%" background-position="center"}
+
+##  LMR ST_021: Log Mean Ratio (GEE vs Open Data Cube)
+
+
+<br>
+
+<center>
+```{r fig.align='center'}
+knitr::include_url("html/ST_021/LMR_roi_sync.html", height = "500px")
+```
+</center>
+
+
+<!-- ## LMR: Segment Anything Model ([SAM](https://segment-anything.com))  -->
+
+<!-- ::: columns -->
+
+<!-- ::: {.column  width="45%" .p_small} -->
+
+
+<!-- ![Imagen de Log Mean Ratio (LMR) sin referencia espacial](images/ST_021/LMR.png){ fig-align="center" width="500"} -->
+
+<!-- ::: -->
+<!-- ::: {.column width="5%"} -->
+<!-- ::: -->
+
+<!-- ::: {.column width="45%" .p_small} -->
+
+<!-- ![Imagen de Log Mean Ratio (LMR) aplicado SAM [@kirillov2023segment]](images/ST_021/ST_021_LMR_1S_SAM.png){fig-align="center" width="500"} -->
+
+<!-- ::: -->
+
+<!-- ::: -->
+
+
+# MC: Triangular Threshold Segmentation (Douglas-Peucker)
+
+
+## {background-image="images/slide_tts_dd.png" background-size="75%" background-position="center"}
+
+
+
+<!-- ## DDI,  EDI, LMR ST_021: Triangular Threshold Segmentation  -->
+
+<!-- ::: columns -->
+
+<!-- ::: {.column  width="30%" .p_small} -->
+<!-- ![Triangular Threshold Segmentation a imagen sobre DD con umbral de 56.61 ](images/ST_021/TTS_DD.tif){fig-align="center" width="500"} -->
+
+
+
+<!-- ::: -->
+<!-- ::: {.column width="30%" .p_small} -->
+<!-- ![Triangular Threshold Segmentation a Enhanced Difference Image sobre EDI con umbral de 58.88](images/ST_021/TTS_EDI.tif){ fig-align="center" width="500"} -->
+<!-- ::: -->
+
+<!-- ::: {.column width="30%" .p_small} -->
+
+<!-- ![Triangular Threshold Segmentation a Enhanced Difference Image sobre LMR con umbral de 45.09](images/ST_021/TTS_LMR.tif){ fig-align="center" width="500"} -->
+
+<!-- ::: -->
+
+<!-- ::: -->
+
+
+## DDI,  EDI, LMR ST_021: Triangular Threshold Segmentation 
+
+<br>
+
+<center>
+```{r fig.align='center'}
+knitr::include_url("html/ST_021/TTS_roi_sync.html", height = "500px")
+```
+</center>
+
+
+
+
+
+
+<!-- # MC: PCA K-Means (PCAK) -->
+
+
+<!-- ## {background-image="images/slide_pcak.png" background-size="75%" background-position="center"} -->
+
+
+
+<!-- ## PCAK: Sobre todas las imágenes de diferencia -->
+
+<!-- ::: columns -->
+
+<!-- ::: {.column  width="25%" .p_small} -->
+
+
+<!-- ![Imagen de PCA K-Means (PCAK)  sobre  DD](images/ST_001/PCAK_DD.png){ fig-align="center" width="500"} -->
+
+<!-- ::: -->
+
+<!-- ::: {.column width="25%" .p_small} -->
+
+<!-- ![Imagen de PCA K-Means (PCAK) sobre  LLR](images/ST_001/PCAK_LLR.png){ fig-align="center" width="500"} -->
+<!-- ::: -->
+
+<!-- ::: {.column width="25%" .p_small} -->
+<!-- ![Imagen de PCA K-Means (PCAK) sobre EDI](images/ST_001/PCAK_EDI.png){ fig-align="center" width="500"} -->
+<!-- ::: -->
+
+
+<!-- ::: {.column width="25%" .p_small} -->
+
+<!-- ![Imagen de PCA K-Means (PCAK) sobre  LMR](images/ST_001/PCAK_LMR.png){ fig-align="center" width="500"} -->
+<!-- ::: -->
+<!-- ::: -->
+
+
+<!-- ##   MC: PCA K-Means Sobre EDI -->
+
+<!-- <center> -->
+<!-- ```{r fig.align='center'} -->
+<!-- knitr::include_url("html/ST_001/PCAK_EDI_roi.html", height = "500px") -->
+<!-- ``` -->
+<!-- </center> -->
+
+# Conclusiones
+
+
+::: columns
+::: {.column  width="55%" .p_small}
+
+
+Se comparó los métodos convencionales de detección de cambios con dos fuentes de datos, de la plataforma de Google Earth Engine (raw) y desde la Plataforma de Open Data Cube con transformaciones.
+
+Se observó que los productos satelitales tipo SAR provenientes del Open Data Cube, resalta diferencias en menor medida que las imágenes provenientes de GEE.
+
+:::
+
+::: {.column width="5%"}
+:::
+
+::: {.column width="40%" .p_small}
+
+
+![](images/logo_odc.png){fig-align="center" width="190"}![](images/logo_GEE.png){fig-align="center" width="170"}
+
+:::
+:::
+
+
+# Trabajos Futuros
+
+
+
+::: columns
+::: {.column  width="45%" .p_small}
+
+-   Escribir Estado del Arte dentro de la introducción
+-   Investigar sobre las transformaciones y/o correcciones ODC
+-   Definir Métricas por pixel 
+-   Crear implemetación de [FastSAM](https://github.com/CASIA-IVA-Lab/FastSAM) [@zhao2023fast] espacial - En progreso
+-   Diseñar e implementar flujo de trabajo (todas roi)
+
+:::
+
+::: {.column width="5%"}
+:::
+
+::: {.column width="50%" .p_small}
+
+![](images/diagrama_actual_2.png){fig-align="center" width="600"}
+
+:::
+:::
+
+# Bibliografía 
+
+
+
+##
+
+<br>
+
+::: {#refs}
+:::
+

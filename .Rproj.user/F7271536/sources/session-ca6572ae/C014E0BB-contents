@@ -1,0 +1,161 @@
+@article{sabatini2002segregacion,
+  title={La segregaci{\'o}n de los pobres en las ciudades: un tema cr{\'\i}tico para Chile},
+  author={Sabatini, Francisco},
+  journal={Revista Centro de Investigaci{\'o}n Social},
+  volume={1},
+  pages={18--23},
+  year={2002}
+}
+
+@article{ruiz2014estudio,
+  title={El estudio de la segregaci{\'o}n residencial en Santiago de Chile: revisi{\'o}n cr{\'\i}tica de algunos problemas metodol{\'o}gicos y conceptuales},
+  author={Ruiz-Tagle, Javier and L{\'o}pez, Ernesto},
+  journal={EURE (Santiago)},
+  volume={40},
+  number={119},
+  pages={25--48},
+  year={2014},
+  publisher={SciELO Chile}
+}
+
+
+@article{agostini2016segregacion,
+  title={Segregaci{\'o}n residencial de ingresos en el Gran Santiago, 1992-2002: una estimaci{\'o}n robusta},
+  author={Agostini, Claudio A and Hojman, Daniel and Rom{\'a}n, Alonso and Valenzuela, Luis},
+  journal={Eure (Santiago)},
+  volume={42},
+  number={127},
+  pages={159--184},
+  year={2016},
+  publisher={SciELO Chile}
+}
+
+
+@article{agostini2008distribucion,
+  title={Distribuci{\'o}n espacial de la pobreza en Chile},
+  author={Agostini, Claudio A and Brown, Philip H and G{\'o}ngora, Diana Paola},
+  journal={Estudios de econom{\'\i}a},
+  volume={35},
+  number={1},
+  pages={79--110},
+  year={2008},
+  publisher={SciELO Chile}
+}
+
+
+@Article{moran_interpretation_1948,
+  title = {The {{Interpretation}} of {{Statistical Maps}}},
+  author = {P. a. P. Moran},
+  date = {1948},
+  journaltitle = {Journal of the Royal Statistical Society: Series B (Methodological)},
+  volume = {10},
+  number = {2},
+  pages = {243--251},
+  issn = {2517-6161},
+  doi = {10.1111/j.2517-6161.1948.tb00012.x},
+  url = {https://onlinelibrary.wiley.com/doi/abs/10.1111/j.2517-6161.1948.tb00012.x},
+  urldate = {2022-11-08},
+  langid = {english},
+  annotation = {\_eprint: https://onlinelibrary.wiley.com/doi/pdf/10.1111/j.2517-6161.1948.tb00012.x},
+  file = {/Users/denisberroeta/Zotero/storage/WQ64NL55/j.2517-6161.1948.tb00012.html},
+}
+@Article{anselin_local_1995,
+  title = {Local {{Indicators}} of {{Spatial Association}}—{{LISA}}},
+  author = {Luc Anselin},
+  date = {1995},
+  journaltitle = {Geographical Analysis},
+  volume = {27},
+  number = {2},
+  pages = {93--115},
+  issn = {1538-4632},
+  doi = {10.1111/j.1538-4632.1995.tb00338.x},
+  url = {https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1538-4632.1995.tb00338.x},
+  urldate = {2022-11-08},
+  abstract = {The capabilities for visualization, rapid data retrieval, and manipulation in geographic information systems (GIS) have created the need for new techniques of exploratory data analysis that focus on the “spatial” aspects of the data. The identification of local patterns of spatial association is an important concern in this respect. In this paper, I outline a new general class of local indicators of spatial association (LISA) and show how they allow for the decomposition of global indicators, such as Moran's I, into the contribution of each observation. The LISA statistics serve two purposes. On one hand, they may be interpreted as indicators of local pockets of nonstationarity, or hot spots, similar to the Gi and G*i statistics of Getis and Ord (1992). On the other hand, they may be used to assess the influence of individual locations on the magnitude of the global statistic and to identify “outliers,” as in Anselin's Moran scatterplot (1993a). An initial evaluation of the properties of a LISA statistic is carried out for the local Moran, which is applied in a study of the spatial pattern of conflict for African countries and in a number of Monte Carlo simulations.},
+  langid = {english},
+  annotation = {\_eprint: https://onlinelibrary.wiley.com/doi/pdf/10.1111/j.1538-4632.1995.tb00338.x},
+  file = {/Users/denisberroeta/Zotero/storage/LMRE45US/Anselin - 1995 - Local Indicators of Spatial Association—LISA.pdf;/Users/denisberroeta/Zotero/storage/VXQVE3IQ/j.1538-4632.1995.tb00338.html},
+}
+
+@article{Tobler_1970,
+	doi = {10.2307/143141},
+	url = {https://doi.org/10.2307%2F143141},
+	year = 1970,
+	month = {jun},
+	publisher = {{JSTOR}},
+	volume = {46},
+	pages = {234},
+	author = {W. R. Tobler},
+	title = {A Computer Movie Simulating Urban Growth in the Detroit Region},
+	journal = {Economic Geography}
+}
+
+@article{Lefebvre_1974,
+	doi = {10.3406/homso.1974.1855},
+	url = {https://doi.org/10.3406%2Fhomso.1974.1855},
+	year = 1974,
+	publisher = {{PERSEE} Program},
+	volume = {31},
+	number = {1},
+	pages = {15--32},
+	author = {Henri Lefebvre},
+	title = {La production de l{\textquotesingle}espace},
+	journal = {L Homme et la soci{\'{e}}t{\'{e}}}
+}
+
+@article{Cerda_L_2007,
+	doi = {10.4067/s0716-10182007000400014},
+	url = {https://doi.org/10.4067%2Fs0716-10182007000400014},
+	year = 2007,
+	month = {aug},
+	publisher = {{SciELO} Agencia Nacional de Investigacion y Desarrollo ({ANID})},
+	volume = {24},
+	number = {4},
+	author = {Jaime Cerda L and Gonzalo Valdivia C},
+	title = {John Snow, la epidemia de c{\'{o}}lera y el nacimiento de la epidemiolog{\'{\i}}a moderna},
+	journal = {Revista chilena de infectolog{\'{\i}}a}
+}
+
+@article{Ramsay_2006,
+	doi = {10.1080/08998280.2006.11928120},
+	url = {https://doi.org/10.1080%2F08998280.2006.11928120},
+	year = 2006,
+	month = {jan},
+	publisher = {Informa {UK} Limited},
+	volume = {19},
+	number = {1},
+	pages = {24--28},
+	author = {Michael A. E. Ramsay},
+	title = {John Snow, {MD}: Anaesthetist to the Queen of England and Pioneer Epidemiologist},
+	journal = {Baylor University Medical Center Proceedings}
+}
+
+@article{Cliff_1974,
+	doi = {10.2307/2529248},
+	url = {https://doi.org/10.2307%2F2529248},
+	year = 1974,
+	month = {dec},
+	publisher = {{JSTOR}},
+	volume = {30},
+	number = {4},
+	pages = {729},
+	author = {F. N. D. and A. D. Cliff and J. K. Ord},
+	title = {Spatial Autocorrelation},
+	journal = {Biometrics}
+}
+
+@article{Cliff_1972,
+	doi = {10.1111/j.1538-4632.1972.tb00475.x},
+	url = {https://doi.org/10.1111%2Fj.1538-4632.1972.tb00475.x},
+	year = 1972,
+	month = {jul},
+	publisher = {Wiley},
+	volume = {4},
+	number = {3},
+	pages = {267--284},
+	author = {Andrew Cliff and Keith Ord},
+	title = {Testing for Spatial Autocorrelation Among Regression Residuals},
+	journal = {Geographical Analysis}
+}
+@article{Arkhangelsky_2021, title={Synthetic Difference-in-Differences}, volume={111}, ISSN={0002-8282}, url={http://dx.doi.org/10.1257/aer.20190159}, DOI={10.1257/aer.20190159}, number={12}, journal={American Economic Review}, publisher={American Economic Association}, author={Arkhangelsky, Dmitry and Athey, Susan and Hirshberg, David A. and Imbens, Guido W. and Wager, Stefan}, year={2021}, month=dec, pages={4088–4118} }
+

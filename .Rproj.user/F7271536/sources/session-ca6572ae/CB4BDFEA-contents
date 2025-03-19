@@ -1,0 +1,619 @@
+---
+title: "Herramientas de Geoanálisis"
+subtitle: "Aplicaciones para la Gestión Pública"
+# institute: "Goblab UAI"
+author: "Denis Berroeta G."
+date: "19 Marzo 2025"
+bibliography: referencias.bib
+format:
+  revealjs:
+    footer: "Feria de Innovación: Herramientas de Geoanálisis Aplicadas a la Gestión Pública"
+    preview-links: true
+    css: style/style.css
+    transition: slide
+    center: true
+    chalkboard: true
+    theme: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(comment = NA, warning = FALSE, eval = F, 
+                      fig.align='center', fig.height=3.5)
+# parámetros
+font_size = 16
+n_head = 10
+
+# librerías
+suppressPackageStartupMessages(library(sf))
+suppressPackageStartupMessages(library(plotly))
+suppressPackageStartupMessages(library(dplyr))
+suppressPackageStartupMessages(library(purrr))
+suppressPackageStartupMessages(library(readr))
+suppressPackageStartupMessages(library(kableExtra))
+# suppressPackageStartupMessages(library(mapdeck))
+# suppressPackageStartupMessages(require(knitr))
+suppressPackageStartupMessages(library(tidygeocoder))
+suppressPackageStartupMessages(library(tidyr))
+suppressPackageStartupMessages(library(stringdist))
+
+```
+
+## {background-image="images/espacio_cop.png" background-size="85%" background-position="center"}
+
+# Agenda
+
+## Agenda
+
+:::::: columns
+::: {.column .p_small width="45%"}
+<br>
+
+-   Importancia del Análisis Espacial
+-   Caso 1: Geocodificación Masiva de Direcciones
+-   Caso 2: Análisis de Focos de Delitos y Prevención
+-   Caso 3: Construcción de Indicadores Territoriales para Políticas Públicas
+-   Caso 4: Autocorrelación Espacial y Segregación
+-   Conclusiones
+:::
+
+::: {.column width="5%"}
+:::
+
+::: {.column .p_small width="50%"}
+<br>
+
+![](images/01_accesibilidad.png){fig-align="center" width="400"}
+:::
+::::::
+
+<!-- <center> -->
+
+<!-- ```{r fig.align='center'} -->
+
+<!-- knitr::include_url("html/ST_021/RGB_roi.html", height = "500px") -->
+
+<!-- ``` -->
+
+<!-- </center> -->
+
+# ¿Es importante el territorio en la gestión en Políticas Públicas?
+
+## 
+
+:::::: columns
+::: {.column .p_small width="45%"}
+**El espacio no es neutro:**
+
+-   Las decisiones afectan de manera diferenciada a los territorios.
+-   La cercanía a servicios, infraestructuras y factores ambientales impacta la calidad de vida.
+:::
+
+::: {.column .p_small width="10%"}
+:::
+
+::: {.column width="45%"}
+![](images/vista_noctura_streets.jpg){fig-align="center" width="400"}
+:::
+::::::
+
+##  {background-image="images/drogas_autoproducion.png" background-size="85%" background-position="center"}
+
+# ¿Qué se necesita para hacer análisis espacial?
+
+## 
+
+::::: columns
+::: {.column .p_small width="55%"}
+-   **Tipos de datos espaciales:**
+    -   Puntos (ubicaciones específicas, eventos)
+    -   Líneas (calles, ríos)
+    -   Polígonos (zonas administrativas)
+    -   Ráster (imágenes satelitales, modelos de elevación)
+:::
+
+::: {.column width="45%"}
+![](images/capas.png){fig-align="center" width="400"}
+:::
+:::::
+
+## 
+
+::::: columns
+::: {.column .p_small width="40%"}
+-   **Software de Análisis Espacial:**
+    -   **R Project**
+    -   Python
+    -   QGIS o Argis
+    
+<center>
+![](images/r.jpeg){fig-align="center" width="100"} <br>
+![](images/sf_logo.gif){fig-align="center" width="100"}
+</center>
+
+:::
+
+::: {.column width="60%"}
+
+![](images/tipos_vect.png){fig-align="center" width="600"}
+:::
+:::::
+
+# ¿Cómo podría crear un objeto espacial, si solo tengo la dirección?
+
+## 
+
+**Caso 1: ¿Cómo geocodificar direcciones?**
+
+:::::: columns
+::: {.column .p_small width="35%"}
+-   **DUOC:** Medir si existe relación de la deserción respecto al la distacia del domicio del alumno a las sedes
+
+![](images/DUOC_logo.png){fig-align="center" width="100"}
+:::
+
+::: {.column width="5%"}
+:::
+
+::: {.column width="60%"}
+![](images/etapas.png){fig-align="center" width="600"}
+:::
+::::::
+
+## 
+
+**Un Ejemplo de Geocodificación**
+
+:::::: columns
+::: {.column .p_small width="50%"}
+**Librerías claves:** `tidygeocoder`, `sf`, `mapview`
+
+**Código en R:**
+
+``` r
+library(tidygeocoder) # geocodificar
+library(dplyr) # manipulación de tablas
+
+# Crear tabla con direcciones
+addresses <- data.frame(
+  address = c("La Moneda, Santiago, Chile", 
+              "Avenida Diagonal Las Torres 2640, Peñalolen",
+              "Presidente Errázuriz 3485, Las Condes,"))
+
+# Geocodificar              
+geo_data <- addresses %>%
+  geocode(address, method = "osm")
+geo_data
+```
+:::
+
+::: {.column width="5%"}
+:::
+
+::: {.column width="45%"}
+```{r echo=FALSE, eval=TRUE}
+library(tidygeocoder)
+library(dplyr)
+
+geo_data <- readRDS("data/geoding_base.rds")
+geo_data %>% 
+  as.data.frame() %>% 
+  kbl() %>%
+   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+                 font_size =font_size)
+```
+:::
+::::::
+
+## 
+
+**Visualización Espacial**
+
+:::::: columns
+::: {.column .p_small width="35%"}
+**Código en R:**
+
+``` r
+library(mapview) # generar mapas web
+
+# convertir de tabla a objeto espacial
+geo_data_sf  <- geo_data %>%
+  sf::st_as_sf(
+    coords = c("long", "lat"),
+    crs = 4326)
+
+# visualziación
+mapview(geo_data_sf)
+```
+:::
+
+::: {.column width="5%"}
+:::
+
+::: {.column width="60%"}
+<center>
+
+```{r fig.align='center', eval = T}
+knitr::include_url("maps/geo_uni.html", height = "500px")
+```
+
+</center>
+:::
+::::::
+
+# ¿Qué hago si tengo muchos puntos espaciales?
+
+## Calcular la Concentración (Inferencia espacial)
+
+:::::: columns
+::: {.column .p_small width="50%"}
+**Caso 2: Plan de Seguridad Comunal para la Municipalidad de Las Condes (2017)**
+
+- Identificar zonas de riesgos de delios y focalizar planes de prevención
+- Evaluear la efectividad de los iniciativas de control (cámaras, lumniaria)
+- Medir relaciones de los delitos variables sociodemográficas o de conducta social.
+
+:::
+
+::: {.column width="5%"}
+:::
+
+::: {.column width="45%"}
+![](images/seguridad_LC.jpg){fig-align="center" width="600"}
+:::
+::::::
+
+## 
+
+:::::: columns
+::: {.column .p_small width="40%"}
+**Kernel Density Estimation (KDE)**
+
+KDE es un método de análisis espacial que permite identificar zonas con mayor concentración de eventos, como delitos. Funciona calculando la densidad en torno a cada punto de datos y generando un mapa de calor, donde los colores más intensos indican áreas de mayor riesgo.
+
+$$
+\hat{f}(x)=\frac{1}{n}\sum_{i = 1}^{n}K_h(x-x_i)= \frac{1}{nh}\sum_{i = 1}^{n}K\left(\frac{x-x_i}{h}\right)
+$$
+:::
+
+::: {.column width="5%"}
+:::
+
+::: {.column width="55%"}
+![](images/Density-%20map_point-map.png){fig-align="center" width="600"}
+:::
+::::::
+
+## Ejemplo en R: Lectura de casos policiales (anonimizados)
+
+::: {.panel-tabset .p_small_tabset}
+## Lectura
+
+```{r eval=TRUE, echo=TRUE}
+# Lectua de casos policiales
+violencia_df <- readRDS(file = "data/casos_violencia.rds")
+
+
+head(violencia_df)
+```
+
+## Objeto Espacial
+
+```{r eval=TRUE, echo=TRUE}
+
+# Transformar a objetos espacial sf
+violencia <-  st_as_sf(x = violencia_df, 
+                          coords = c("x", "y"), crs = 32719)
+
+violencia
+```
+
+## Plot de Casos
+
+```{r, eval= T}
+
+                          
+ggplot() +
+  geom_sf(data = violencia,  color =  "red", 
+          alpha=0.8,  size= 0.1)+
+  ggtitle("Delitos Violentos en Las Condes") +
+  theme_bw() +
+  theme(panel.grid.major = element_line(colour = "gray80"), 
+        panel.grid.minor = element_line(colour = "gray80"))
+```
+
+## Código Plot
+
+```{r, eval =FALSE, echo = T}
+                          
+ggplot() +
+  geom_sf(data = violencia,  color =  "red", 
+          alpha=0.8,  size= 0.1)+
+  ggtitle("Delitos Violentos en Las Condes") +
+  theme_bw() +
+  theme(panel.grid.major = element_line(colour = "gray80"), 
+        panel.grid.minor = element_line(colour = "gray80"))
+```
+:::
+
+## Cálculo del KDE
+
+::: {.panel-tabset .p_small_tabset}
+```{r echo=FALSE, eval=T}
+kde_r <- readRDS("data/kde.rds")
+```
+
+## Raster Vacío
+
+```{r eval=FALSE, echo=TRUE}
+library(SpatialKDE)
+
+#Definirán Parámemetros de Estudio
+cell_size <- 100 # Tamaño de Celda
+band_width <- 500 #  Parámetro de Suavisado (denominada ventana o h)
+
+# Raster Vacío
+raster_violencia <- violencia %>% 
+  create_raster(cell_size = cell_size, side_offset = band_width)
+
+raster_violencia
+```
+
+```{r eval=T}
+kde_r$r_vacio
+```
+
+## Cálculo de KDE
+
+Calcular KDE con Función cuartica o esférica (`quartic`)
+
+```{r, eval= F, echo = T}
+
+                          
+kde_raster <- violencia %>% 
+  kde(band_width = band_width, kernel = "quartic", grid = raster_violencia)
+
+kde_raster
+```
+
+```{r eval=T}
+kde_raster  <- kde_r$r_kernel
+kde_raster 
+```
+
+## Plot Kernel
+
+```{r eval=T}
+kde_raster_df <- kde_r$r_kde_df
+
+umbral <- 1
+kde_raster_df <- kde_raster_df %>% 
+  mutate(layer = ifelse(layer < umbral, NA, layer))
+
+ggplot() +
+  geom_raster(data = kde_raster_df %>% na.omit() , 
+              aes(x = x, y = y, 
+                  fill = layer)) + 
+  scale_fill_gradientn(name = "KDE", 
+                       colors = (viridis::magma(100)), na.value = NA)+
+  coord_fixed()+
+  ggtitle(paste0("KDE Raster de Delitos") ) +
+  theme_bw() +
+  theme(panel.grid.major = element_line(colour = "gray80"), 
+        panel.grid.minor = element_line(colour = "gray80"))
+```
+
+## Código Plot
+
+```{r, eval =FALSE, echo = T}
+kde_raster_df <- raster::as.data.frame(kde_raster, xy = TRUE) %>% na.omit()
+
+umbral <- 1
+kde_raster_df <- kde_raster_df %>% 
+  mutate(layer = ifelse(layer < umbral, NA, layer))
+
+ggplot() +
+  geom_raster(data = kde_raster_df %>% na.omit() , 
+              aes(x = x, y = y, 
+                  fill = layer)) + 
+  scale_fill_gradientn(name = "KDE", 
+                       colors = (viridis::magma(100)), na.value = NA)+
+  coord_fixed()+
+  ggtitle(paste0("KDE Raster de Delitos") ) +
+  theme_bw() +
+  theme(panel.grid.major = element_line(colour = "gray80"), 
+        panel.grid.minor = element_line(colour = "gray80"))
+```
+
+<!-- ## KDE Mapview -->
+
+<!-- ```{r fig.align='center', eval = T} -->
+
+<!-- knitr::include_url("maps/kde_delitos.html", height = "300px") -->
+
+<!-- ``` -->
+:::
+
+## Cálculo de Indicador de Delitos Violentos
+
+::: {.panel-tabset .p_small_tabset}
+## Lectura Manzans
+
+```{r eval=T, echo=TRUE}
+# poligonos de la comuna de las condes
+mz_comuna <- readRDS("data/mz_las_condes.rds") 
+# str(mz_comuna)
+plot(mz_comuna$geometry, color = "gray60")
+
+```
+
+## Cálculo Indicador
+
+```{r, eval= T, echo = T}
+library(exactextractr)
+
+mz_comuna  <- mz_comuna %>% 
+  mutate(idelv = exact_extract(kde_raster,y = ., 'mean', 
+                               progress = FALSE))
+
+mz_comuna %>% dplyr::select(NOM_COM, COD_INE_ID, POBLACION, idelv)
+                          
+
+```
+
+## Plot Indicador
+
+```{r eval=T}
+ggplot() +
+  geom_sf(data = mz_comuna, aes(fill = idelv), color ="gray80", 
+          alpha=0.8,  size= 0.1)+
+  # scale_fill_gradientn(colors = pal_idelv)+
+  scale_fill_distiller(palette= "Reds", direction = 1)+
+  ggtitle("Indicador de Delitos Violentos") +
+  theme_bw() +
+  theme(panel.grid.major = element_line(colour = "gray80"), 
+        panel.grid.minor = element_line(colour = "gray80"))
+```
+:::
+
+## 
+
+<center>
+
+```{r fig.align='center', eval = T}
+knitr::include_url("maps/delv_ind.html", height = "500px")
+```
+
+</center>
+
+# ¿Podemos construir otros Indicadores Territoriales?
+
+## **Indicador Territorial**
+
+:::::: columns
+::: {.column .p_small width="50%"}
+Es una medida que refleja características o fenómenos específicos de una región o área geográfica, tales como la accesibilidad, la distribución de recursos, el desarrollo socioeconómico o los niveles de seguridad.
+
+Estos indicadores están vinculados a un territorio y suelen ser utilizados para evaluar las condiciones y desigualdades entre distintas zonas.
+
+**Fuentes de Información**: Censo 2017
+:::
+
+::: {.column width="5%"}
+:::
+
+::: {.column .p_small width="45%"}
+![](images/back_homev04-1.png){fig-align="center" width="600"}
+:::
+::::::
+
+## Etapas
+
+![](images/pasos.png){fig-align="center"}
+
+## Indicador de Nivel Socioeconómico
+
+::: columns
+::: {.column .p_small width="50%"}
+**Indicador de Escolaridad del jefe de hogar (IEJ)** [CIT-UAI](https://cit.uai.cl/)
+
+Para la construcción de este indicador se utilizó el promedio de años de estudio de jefes de hogar (EJH), que es una variable censal numérica (“JH_ESC_P”, en tabla de personas del censo 2017) que registra el nivel del curso más alto aprobado, medida en años sucesivos desde la enseñanza básica hasta estudios de postgrado.
+
+Se calcula el promedio de esta variable para todos los jefes de hogar en cada manzana. Esta variable es representativa del **capital cultural de cada hogar** y está altamente correlacionada con el nivel de ingresos en Chile (@agostini2016segregacion).
+:::
+
+::: {.column width="5%"}
+:::
+
+::: {.column .p_small width="45%"}
+![](images/back_homev04-1.png){fig-align="center" width="600"}
+:::
+:::
+
+
+## Cálculo de Indicador EJH
+
+
+
+::: {.panel-tabset .p_small_tabset}
+## Lectura de "JH_ESC_P"
+
+```{r eval=TRUE, echo=TRUE}
+# poligonos de la comuna de las condes
+censo <- readRDS("data/mz_las_condes.rds") 
+str(censo)
+# plot(mz_comuna$geometry, color = "gray60")
+
+```
+
+## Claculo del Indicador
+
+```{r eval=TRUE, echo=TRUE}
+
+censo <- censo %>% 
+  mutate( IEJ = ifelse(JH_ESC_P ==0, NA, JH_ESC_P))
+```
+
+## Plot Indicador
+
+```{r, eval= T}
+
+ggplot() +
+  geom_sf(data = censo, aes(fill = IEJ), color =NA, 
+          alpha=0.8,  size= 0.1)+
+  scale_fill_distiller(palette= "YlGnBu", direction = 1)+
+  ggtitle("Indicador de Escolaridad del jefe de hogar (IEJ) - Urbano" ) +
+  theme_bw() +
+  theme(panel.grid.major = element_line(colour = "gray80"), 
+        panel.grid.minor = element_line(colour = "gray80"))
+```
+
+## Código Plot
+
+```{r, eval =FALSE, echo = T}
+                          
+ggplot() +
+  geom_sf(data = censo, aes(fill = IEJ), color =NA, 
+          alpha=0.8,  size= 0.1)+
+  scale_fill_distiller(palette= "YlGnBu", direction = 1)+
+  ggtitle("Indicador de Escolaridad del jefe de hogar (IEJ) - Urbano" ) +
+  theme_bw() +
+  theme(panel.grid.major = element_line(colour = "gray80"), 
+        panel.grid.minor = element_line(colour = "gray80"))
+```
+:::
+
+
+## Relaciones con Nivel Socioeconómicos con Delitos
+
+<center>
+
+```{r fig.align='center', eval = T}
+knitr::include_url("maps/eij_windows.html", height = "500px")
+```
+
+</center>
+
+
+# Conclusiones
+
+- La transformación de datos espaciales nos permite extraer información estratégica para la toma de decisiones:
+  - De direcciones a coordenadas para análisis geoespacial.
+  - De puntos a densidades con KDE para identificar patrones de distribución.
+  - De ráster a polígonos para construir indicadores territoriales.
+- Detectamos relaciones espaciales relevantes que impactan en la planificación y distribución de recursos.
+- Las decisiones basadas en análisis espacial mejoran la eficiencia en la gestión pública.
+- Integrar el geoanálisis en políticas públicas permite diseñar intervenciones más equitativas y sustentables.
+- **El territorio es el escenario donde ocurren los hechos**, y comprenderlo nos permite proyectar mejores soluciones para el futuro.
+
+
+
+# Preguntas
+
+# Bibliografía
+
+## 
+
+<br>
+
+::: {#refs}
+:::

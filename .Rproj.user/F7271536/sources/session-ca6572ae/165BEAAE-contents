@@ -1,0 +1,803 @@
+---
+title: "Herramientas de Geoanálisis"
+subtitle: "Aplicaciones para la Gestión Pública"
+author: "Goblab UAI"
+institute: "Denis Berroeta G."
+date: "19 Marzo 2025"
+output:
+  revealjs::revealjs_presentation:
+    self_contained: false
+    css: styles/style.css
+    reveal_plugins: ["zoom"]
+    mathjax: "default"
+    transition: slide
+    incremental: true
+    theme: white
+    fig_height: 4
+    fig_width: 6
+    toc: true
+    toc_depth: 3
+    center: true
+    widescreen: true
+    touch: true
+    fig_caption: true
+    keyboard: true
+    reveal_options:
+      slideNumber: false
+      controls: true
+      mouseWheel: false
+      minScale: 1.0
+      maxScale: 1.0
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(comment = NA, warning = FALSE, eval = F, 
+                      fig.align='center', fig.height=3.5)
+# parámetros
+font_size = 16
+n_head = 10
+
+# librerías
+suppressPackageStartupMessages(library(sf))
+suppressPackageStartupMessages(library(plotly))
+suppressPackageStartupMessages(library(dplyr))
+suppressPackageStartupMessages(library(purrr))
+suppressPackageStartupMessages(library(readr))
+suppressPackageStartupMessages(library(kableExtra))
+suppressPackageStartupMessages(library(mapdeck))
+suppressPackageStartupMessages(require(knitr))
+suppressPackageStartupMessages(library(tidygeocoder))
+suppressPackageStartupMessages(library(tidyr))
+suppressPackageStartupMessages(library(stringdist))
+
+```
+
+# Agenda {.bottom .white data-background="images/r-studio-tutorial.jpeg"}
+
+## 
+
+#### Agenda
+
+- Introducción
+- Importancia del Análisis Espacial
+- Caso 1: Geocodificación Masiva de Direcciones
+- Caso 2: Análisis de Focos de Delitos y Prevención
+- Caso 3: Construcción de Indicadores Territoriales para Políticas Públicas
+- Caso 4: Autocorrelación Espacial y Segregación
+  
+
+
+# Objetivos de la capacitación {.fucsia}
+
+## 
+
+**Objetivos de la capacitación:**
+
+La presente capacitación tiene como objetivo principal dar a conocer los procedimientos técnicos generales que se realizaron al procesar las bases, en las etapas de geocodifiacción.
+
+
+# Consolidación de Bases {.fucsia}
+
+
+## 
+
+**Objetivos:**
+
+-   Conocer las bases de datos, en estructura y contenidos, para analizarlas a fin de estimar niveles de complejidad en su posterior procesamiento.
+-   Consolidar todas las bases de datos en una sola con solamente la información necesaria para la georeferenciación, donde cada registro tiene una variable denominada ID que permite identificar su fuente y correlativo.
+
+
+## 
+
+<center>
+![](images/head_bases.png){.img_c}
+</center>
+
+## 
+
+**Generar ID:**
+
+```{r eval=FALSE, message=FALSE, comment=FALSE, echo =FALSE}
+# Crear ID
+make_id <- function(base, iniciales, digitos = 6){
+  ceros <-  paste0("%0", digitos, "d")
+  base_res <- base %>% 
+    dplyr::mutate(ID =paste0(iniciales, "_", sprintf(ceros, 1:nrow(base))))
+  return(base_res)
+}
+
+# crear ID
+bases_id <- files_csv %>% 
+  map2( .f = make_id, .x = .,
+           .y = c("DS", "SD", "MT", "SP"))
+```
+
+<!-- ##  -->
+
+<!-- **Selección de Variables** -->
+
+```{r  eval=FALSE, message=FALSE, comment=FALSE, echo =FALSE}
+lista_base <- bases_id %>%
+  map(~mutate(.,  NUMERO = as.character(NUMERO),
+              COMUNA = toupper(COMUNA)))
+
+
+consolidado <- lista_base %>% 
+  map_df(~select(.,  ID, SEDE, CALLE,  NUMERO, COMUNA, REGION))
+```
+
+
+<!-- ## -->
+
+```{r echo=FALSE}
+consolidado <- readRDS("data/originales/consolidado.rds")
+consolidado %>%
+  head(6) %>% 
+  kbl() %>%
+   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+                 font_size =font_size)
+```
+
+
+
+# Geocodificación de Direcciones {.bottom .white data-background="images/fondo_duoc.png"}
+
+## 
+
+
+###### Geocodificación de Direcciones{.orange}
+
+**Objetivos:**
+
+-   Procesar y transformar direcciones para que coincidan con la base de calles nacional del motor de georeferenciación [Nominatim](https://nominatim.org) para obtener un par de coordenadas por cada una de ellas.
+-   Conocer las transformaciones generales de las direcciones por expresiones regulares ([regrex](https://es.wikipedia.org/wiki/Expresión_regular)).
+-   Georeferenciar direcciones transformadas
+-   ~~Validar resultados de geocodificación espacialmente.~~
+
+##
+
+![](images/etapas.png)
+
+# Etapa 1: Limpieza Inicial {.fucsia}
+
+
+##
+
+**Cargar Datos de Prueba (60 Registros)**
+
+```{r eval=FALSE}
+direcciones <- readRDS("data/test/dirs_60.rds")
+head(direcciones)
+```
+
+```{r echo=FALSE}
+direcciones <- readRDS("data/test/dirs_60.rds")
+head(direcciones, 10 ) %>% 
+  kbl() %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+                 font_size =14)
+```
+
+
+
+##
+
+**Función de Limpieza Inicial**
+
+```{r}
+# Función para dejar todo en mayúscula y sin tildes
+limpieza <- function(x) {
+  # x <- stri_trans_general(x,"latin-ASCII") # eliminar tildes
+  x <- stringr::str_to_upper(x) # mayúsculas
+  x <- chartr("ÁÉÍÓÚ", "AEIOU", x)
+  x <- gsub("(?!')[[:punct:]]", "", x, perl=TRUE) #Excepción apostrofe de o'higgins
+  x <- gsub(pattern = 'º', "", x)
+  x <- stringr::str_squish(x) # eliminar espacios al comienzo y espacios repetidos
+  x
+}
+
+```
+
+##
+
+
+**Aplicación de la función de limpieza**
+
+
+```{r}
+direcciones <- direcciones %>% mutate(CALLE = limpieza(CALLE))
+```
+
+```{r echo=FALSE}
+head(direcciones) %>% 
+  kbl() %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+                 font_size =20)
+```
+
+
+##
+
+
+**Generar columna de Consulta**:
+
+```{r echo =FALSE}
+direcciones <- direcciones %>% 
+  mutate(CONSULTA = paste0(NUMERO, " ", CALLE, ", ", COMUNA, ", ", REGION)) %>% 
+  mutate(ETAPA = 1)
+```
+
+<!-- ## -->
+
+```{r echo=FALSE}
+head(direcciones) %>% 
+  kbl() %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+                 font_size =font_size)
+```
+
+##
+
+**Geocodificación**
+
+Se utilizará una librería llamada [tidygeocoder](https://jessecambon.github.io/tidygeocoder/) que da  acceso a los servicios de geocodificación en este caso Nominatim online. El procedimiento que se realizó en el proyecto difiere ya que se utilizó el motor de geocodificación local que ofrece mayor performance.
+
+```{r eval=FALSE}
+library(tidygeocoder)
+# geocode the addresses
+geocoding <- direcciones %>%
+  geocode(CONSULTA, method = 'osm', lat = latitude , long = longitude)
+
+
+```   
+
+##
+
+```{r echo=FALSE}
+geocoding <- readRDS("data/resultados/geocoding_e1.rds")
+head(geocoding, 6) %>% 
+  kbl() %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+                 font_size =font_size)
+```
+
+##
+
+Resultados de Geocodificación en cantidades:
+
+```{r echo = FALSE}
+# tabla de resultados
+tablas_e1 <- geocoding %>% 
+  mutate(res_geocod = ifelse(!is.na(latitude), 1, 0)) %>% 
+  summarise( 
+    codificadas = sum(res_geocod),
+    p_codificadas = paste0(round((sum(res_geocod)/n())*100), "%"),
+    no_codificadas = n()-sum(res_geocod),
+    p_no_codificadas = paste0(round(((n()-sum(res_geocod))/n())*100), "%")) %>% 
+  t() %>% as.data.frame() 
+names(tablas_e1) <- "resultados"
+tablas_e1%>% 
+  kbl() %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+                 font_size =font_size)
+```
+
+##
+
+![](images/etapa_1.png)
+
+# Etapa 2: Limpieza Específica {.fucsia}
+ 
+
+##
+
+Lectura de no geocodificados
+
+```{r eval=FALSE}
+geocoding2 <-  geocoding %>% 
+  filter(is.na(latitude))  %>% 
+  select(-latitude, -longitude)
+head(geocoding2)
+```
+
+##
+
+```{r echo=FALSE}
+geocoding2 <-  geocoding %>% 
+  filter(is.na(latitude)) %>% 
+  select(-latitude, -longitude)
+
+head(geocoding2, 10) %>% 
+  kbl() %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+                 font_size =14)
+```
+
+
+##
+
+**Limpieza por expresiones regulares**
+
+```{r}
+# Encuentra y reemplaza
+find_replace <-  function(patron, reemplazo, data_vector){
+  ids <- grep(pattern = patron, data_vector)
+  data_vector[ids] <- reemplazo
+  return(data_vector)
+}
+geocoding2 <- geocoding2 %>% 
+  mutate(NOM_CALLE = CALLE) %>% 
+  mutate(NOM_CALLE = gsub(pattern = "AV ",replacement = "AVENIDA ",
+                          x =  NOM_CALLE)) %>% 
+  mutate(NOM_CALLE = gsub(pattern = "PSJE ",replacement = "PASAJE ",
+                          x =  NOM_CALLE)) %>%
+  mutate(NOM_CALLE = gsub(pattern = "PASAJE ",replacement = " ",
+                          x =  NOM_CALLE)) %>% 
+  mutate(NOM_CALLE = gsub(pattern = "S/N ",replacement = " ",
+                          x =  NOM_CALLE)) %>% 
+  mutate(NOM_CALLE = stringr::str_squish(NOM_CALLE))
+```
+
+
+
+##
+
+Limpieza de Nombre de Región
+
+```{r}
+
+geocoding2 <- geocoding2 %>% 
+  mutate(NOM_REGION = REGION) %>% 
+  mutate(NOM_REGION = find_replace(patron = "ÑUBLE",
+                                    reemplazo = "Región de Ñuble",
+                                    data_vector =  NOM_REGION)) %>% 
+  mutate(NOM_REGION = find_replace(patron = "METROPOLITANA",
+                                    reemplazo = "Región Metropolitana de Santiago",
+                                    data_vector =  NOM_REGION)) %>% 
+  mutate(NOM_REGION = find_replace(patron = "BIO",
+                                    reemplazo = "Región del Biobío",
+                                    data_vector =  NOM_REGION)) %>% 
+  mutate(NOM_REGION = find_replace(patron = "MAULE",
+                                    reemplazo = "Región del Maule",
+                                    data_vector =  NOM_REGION)) %>% 
+  mutate(NOM_REGION = find_replace(patron = "V - VALPARAISO",
+                                    reemplazo = "Región de Valparaíso",
+                                    data_vector =  NOM_REGION))
+  
+```
+
+##
+
+Geocodificación 
+
+```{r eval = FALSE}
+geocoding2 <- geocoding2 %>% 
+  mutate(NOM_CALLE = gsub("PASAJE", "", NOM_CALLE))
+geocoding2 <-  geocoding2  %>%
+  mutate(CONSULTA = paste0(NUMERO, " ", NOM_CALLE, ", ", 
+                           COMUNA, ", ", NOM_REGION)) %>% 
+  mutate(ETAPA = 2)
+
+# gecodificación
+res_geocoding2 <- geocoding2 %>%
+  geocode(CONSULTA,  method = 'osm', 
+          lat = latitude , long = longitude)
+
+```
+
+##
+
+```{r echo=FALSE}
+res_geocoding2 <- readRDS("data/resultados/geocoding_e2.rds")
+head(res_geocoding2, 5) %>%
+  select(-REGION) %>% 
+  kbl() %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+                 font_size =13)
+```
+
+
+##
+
+Resultados
+
+```{r echo=FALSE}
+res_geocoding2 <- readRDS("data/resultados/geocoding_e2.rds")
+# tabla de resultados
+tablas_e2 <- res_geocoding2 %>% 
+  mutate(res_geocod = ifelse(!is.na(latitude), 1, 0)) %>% 
+  summarise( 
+    codificadas = sum(res_geocod),
+    no_codificadas = n()-sum(res_geocod),
+    p_codificadas = paste0((sum(res_geocod)/n())*100, "%"),
+    p_no_codificadas = paste0(((n()-sum(res_geocod))/n())*100, "%")) %>% 
+  t() %>% as.data.frame() 
+names(tablas_e2) <- "resultados"
+
+head(tablas_e2) %>% 
+  kbl() %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+                 font_size =font_size)
+
+```
+
+##
+
+![](images/etapa_2.png)
+
+# Etapa 3: Distancia Jaro Winkler {.fucsia}
+
+
+##
+
+Formulación Distancia de [Jaro Winkler](https://en.wikipedia.org/wiki/Jaro–Winkler_distance)
+
+<center>
+![Fórmula de Distancia Jaro Winkler](images/jarowincler.jpeg)
+</center>
+
+##
+
+Explicación
+
+<center>
+![Explicación de Distancia Jaro Winkler](images/JW_explain.jpeg)
+</center>
+
+##
+
+Ejemplos de aplicación 
+
+<center>
+![Casos de aplicación Distancia Jaro Winkler](images/examples_JW.png)
+</center>
+
+
+##
+
+**Ejemplo de Cálculo de Distancia de Jaro Winkler**
+
+```{r eval=FALSE}
+# install.packages('stringdist')
+library(stringdist)
+
+```
+
+```{r}
+
+calle_base <- "ALEJANDRO FLEMINS"
+calle_maestro_osm <- "ALEJANDRO FLEMING"
+
+distance_jw <- stringdist(calle_base,calle_maestro_osm, method='jw')
+distance_jw
+
+```
+
+Referencias de algoritmos de distancias de textos ([link](https://search.r-project.org/CRAN/refmans/stringdist/html/stringdist-metrics.html))
+
+##
+
+<center>
+![](images/etapa_3.png)
+</center>
+
+<!-- # Etapa 4: Geocodificación Comunal {.fucsia} -->
+
+
+<!-- ## -->
+
+<!-- ##### Geocodificación Comunal - Etapa 4 -->
+
+<!-- ```{r eval=FALSE} -->
+<!-- # obtener registros de los que no se obtuvieron coords. -->
+<!-- geocoding4 <- res_geocoding2 %>% filter(is.na(latitude)) %>%  -->
+<!--   select(-longitude, -latitude) -->
+
+<!-- #Generación de variable de consulta y etapa -->
+<!-- geocoding4 <- geocoding4 %>%  -->
+<!--   mutate(CONSULTA = paste0(COMUNA, ", ", NOM_REGION)) %>%  -->
+<!--   mutate(ETAPA = 4)  -->
+
+<!-- #geocodificación -->
+<!-- res_geocoding4 <- geocoding4 %>% -->
+<!--   geocode(CONSULTA,  method = 'osm',  -->
+<!--           lat = latitude , long = longitude) -->
+<!-- ``` -->
+
+<!-- ## -->
+
+<!-- ```{r echo=FALSE} -->
+<!-- res_geocoding4 <- readRDS("data/resultados/geocoding_e4.rds") -->
+<!-- head(res_geocoding4, 10) %>%  -->
+<!--   select(-REGION, -CALLE) %>%  -->
+<!--   kbl() %>% -->
+<!--   kable_styling(bootstrap_options = c("striped", "hover", "condensed"),  -->
+<!--                  font_size =12) -->
+<!-- ``` -->
+
+
+
+<!-- ## -->
+
+<!-- **Resultado General Etapa 4** -->
+
+<!-- ```{r echo=FALSE} -->
+<!-- # tabla de resultados -->
+<!-- tablas_e4 <- res_geocoding4 %>%  -->
+<!--   mutate(res_geocod = ifelse(!is.na(latitude), 1, 0)) %>%  -->
+<!--   summarise(  -->
+<!--     codificadas = sum(res_geocod), -->
+<!--     no_codificadas = n()-sum(res_geocod), -->
+<!--     p_codificadas = paste0((sum(res_geocod)/n())*100, "%"), -->
+<!--     p_no_codificadas = paste0(((n()-sum(res_geocod))/n())*100, "%")) %>%  -->
+<!--   t() %>% as.data.frame()  -->
+<!-- names(tablas_e4) <- "resultados" -->
+
+<!-- head(tablas_e4) %>%  -->
+<!--   kbl() %>% -->
+<!--   kable_styling(bootstrap_options = c("striped", "hover"),  -->
+<!--                  font_size =font_size) -->
+
+<!-- ``` -->
+
+<!-- ## -->
+
+<!-- ![](images/etapa_4.png) -->
+
+# Consolidación de Geocodificación {.fucsia}
+
+
+##
+
+Lectura de las etapas con resultados positivos
+
+```{r eval=FALSE}
+resultados <- list.files(path = "data/resultados", 
+                         pattern = "*ok.rds$", full.names = T) %>%
+  map(readRDS) %>% 
+  map_df(~select(., ID, SEDE, ETAPA, CONSULTA, latitude, longitude))
+# summary(resultados)
+```
+
+##
+
+Todos los registros tienen coordenadas (primeros 20)
+
+```{r echo=FALSE}
+
+resultados <-  readRDS("data/resultados/geocoding_all.rds")
+head(resultados, 20) %>% 
+  kbl() %>%
+  kable_styling(bootstrap_options = c("striped", "hover"), 
+                 font_size =14)
+```
+
+
+
+
+<!-- # Cálculo de Distancias {.fucsia} -->
+
+
+<!-- ##  -->
+
+
+<!-- **Tipos de Distancia:** -->
+
+
+<!-- * Distancia Cordal -->
+<!-- * ~~Algoritmo de Ruta más Corta~~ -->
+
+<!-- <center> -->
+<!--  ![Distancia Cordal](images/great-circle_distance.png){width="300px"}![Algorimo de Ruta más corta](images/rmc.jpeg){width="500px"} -->
+<!-- </center> -->
+
+<!-- ##  -->
+
+<!-- **Funciones de Cálculo de Distancia** -->
+
+<!-- ```{r} -->
+<!-- geod <- function(P1,P2,radius) { -->
+<!--     # entrada en grados decimales -->
+<!--     lon1=P1[1]; lat1=P1[2]; lon2=P2[1];lat2=P2[2]; -->
+<!--     # expresar en radianes -->
+<!--     a1 = (lat1)*pi/180; -->
+<!--     b1 = (lon1)*pi/180; -->
+<!--     a2 = (lat2)*pi/180; -->
+<!--     b2 = (lon2)*pi/180; -->
+<!--     # calcula $theta_{ij}$ -->
+<!--     val = sin(a1) * sin(a2) + cos(a1) * cos(a2) * cos(b1 - b2); -->
+<!--     val2 = acos(val)*radius; -->
+<!--     return(as.numeric(val2)) -->
+<!-- } -->
+
+<!-- chor <- function(P1,P2,radius=6371.01) { -->
+<!--     val=radius*2*sin(geod(P1,P2,1)/2) -->
+<!--     return(val); -->
+<!-- } -->
+
+<!-- ``` -->
+
+
+<!-- ## -->
+
+<!-- **Definición de Origen y Destino** -->
+
+<!-- ```{r} -->
+
+<!-- #origen -->
+<!-- pts_o_chor <-  readRDS("data/resultados/geocoding_all.rds") %>%  -->
+<!--   nest(coord_o = c(longitude, latitude)) %>%  -->
+<!--   select(ID, SEDE, coord_o) -->
+
+<!-- #denstino -->
+<!-- pts_d_chor <-  readRDS("data/originales/sedes_raw.rds") %>%  -->
+<!--   nest(coord_d = c(lon, lat)) %>%  -->
+<!--   select(SEDE, coord_d) -->
+
+<!-- ``` -->
+
+<!-- ##  -->
+
+<!-- **Cálculo de Distancias** -->
+<!-- ```{r} -->
+<!-- # chordal dist of km -->
+<!-- radius = 6371.01 * 1000 # llevar los valores a metros -->
+<!-- coords_chor <-pts_o_chor %>%  -->
+<!--         dplyr::left_join(pts_d_chor, by = "SEDE")  -->
+
+<!-- tbl_dd_chor <- coords_chor %>%  -->
+<!--         dplyr::mutate( -->
+<!--           dist_chor = purrr::map2_dbl(coord_o, coord_d, chor, radius = radius)) -->
+
+<!-- ``` -->
+
+<!-- ## -->
+
+
+<!-- # ```{r echo=FALSE} -->
+<!-- # head(tbl_dd_chor, 15) %>%  -->
+<!-- #   kbl() %>% -->
+<!-- #   kable_styling(bootstrap_options = c("striped", "hover"),  -->
+<!-- #                  font_size =16) -->
+<!-- # ``` -->
+
+# Consolidación General {.fucsia}
+
+
+<!-- ## -->
+
+<!-- Agregar Distancia a Base `resultados` -->
+
+<!-- ```{r eval=FALSE} -->
+<!-- distancias <-  tbl_dd_chor %>% -->
+<!--   select(ID,dist_chor ) -->
+
+<!-- resultados <- resultados %>% -->
+<!--   left_join(distancias, by ="ID") -->
+<!-- ``` -->
+
+<!-- ## -->
+
+<!-- Agregar Nombre de la Base -->
+
+<!-- ```{r eval=FALSE} -->
+<!-- resultados <-  resultados %>%  -->
+<!--   mutate(BASE = substr(ID,1,2)) %>%  -->
+<!--   mutate( BASE = case_when( -->
+<!--     BASE == "DS" ~ "DESERTORES", -->
+<!--     BASE == "SD" ~ "SEDES", -->
+<!--     BASE == "MT" ~ "MATRICULADOS", -->
+<!--     BASE == "SP" ~ "SUSPENDIDOS" -->
+<!--   )) -->
+
+
+<!-- ``` -->
+
+
+
+<!-- ## -->
+
+<!-- Agregar rangos de distancias -->
+
+<!-- ```{r eval=FALSE} -->
+<!-- rango <- c(0, 500, 1000, 10000, 100000, 1000000, Inf) -->
+<!-- valores <- c(1:6) -->
+
+<!-- resultados <- resultados %>%  -->
+<!--   mutate(RANGO = cut(x = dist_chor, breaks = rango, labels = valores)) -->
+
+<!-- ``` -->
+
+ 
+##
+
+Transformar a Shapefile
+
+```{r eval=FALSE}
+resultados_sf <- resultados %>% 
+  sf::st_as_sf(coords = c("longitude", "latitude"),
+               crs = 4326, agr = "constant")
+
+# guardar los resultados en shape file
+st_write(resultados_sf, "data/resultados/resultados_geocod.shp")
+```
+
+
+##
+
+
+```{r echo=FALSE}
+resultados_sf <- st_read("data/resultados/resultados_geocod.shp", quiet = T)
+head(resultados_sf, 10) %>% 
+  kbl() %>%
+  kable_styling(bootstrap_options = c("striped", "hover"), 
+                 font_size =14)
+```
+
+
+
+# Visualización de Resultados {.fucsia}
+
+
+## 
+
+######  Visualización de Resultados {.orange}
+
+
+```{r fig.align='center', fig.width=10, fig.height=5}
+mapview::mapview(resultados_sf, zcol= "RANGO")
+```
+
+## 
+
+<!-- [Dashboard argis online](https://cit-uai.maps.arcgis.com/apps/dashboards/1e0ceb3002814953b89d01e20f704968) -->
+
+![](images/dashboard.png)
+
+
+
+# Recomendaciones gestión de base de datos
+
+##
+**Recomendaciones Generales**
+
+- Separación en Columnas de elementos que componen una dirección:
+
+![](images/tabla_dirs.png){width="1200px"}
+
+##
+
+**Recomendaciones Generales**
+
+- Definición del formato de los datos: número, texto, fecha o lógico, ejemplo Ejemplo:: "`NUMERACIÓN`": solo permita ingreso de números positivos.
+-	Valores restringidos: `COMUNA`: solo permita ingresar nombres de comunas existentes en Chile.
+-	Restringir valores de columnas que no pueden quedar vacías:
+Ejemplo:: "`COMUNA`": No puede quedar vacía, ya que puede existir una calle con el mismo nombre en diferentes comunas.
+
+ 
+##
+
+**Documento de Referencia:**
+
+De manera más amplía se puede utilizar como consulta "Recomendación técnica Metadatos"  de IDE (Infraestructura de Datos Espaciales) Chile [http://www.ide.cl/images/Publicaciones/Documentos/METADATOS_IDE_CHILE.pdf](http://www.ide.cl/images/Publicaciones/Documentos/METADATOS_IDE_CHILE.pdf).
+
+<center>
+![](images/IDE_chile.png){width="200px"}
+</center>
+
+
+
+
+<!-- # {.bottom .white data-background="images/gracias.png"} -->
+
+# Consultas
+
+## 
+
+#### Consultas
+
+    Denis Berroeta G.
+    Coordinador de Investigación, Centro de Inteligencia Territorial - UAI
+    denis.berroeta@uai.cl

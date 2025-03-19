@@ -1,0 +1,242 @@
+/* main fonts */
+@import url("https://fonts.googleapis.com/css?family=Alegreya+Sans+SC:400,500");
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,500");
+@import url("https://fonts.googleapis.com/css?family=Fira+Mono");
+
+@import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css");
+
+
+
+body {
+  background-image: url(""),  url("../images/Logo_CIT_UAI_Negro.png");
+  background-size: 10%,  15%;
+  background-repeat: no-repeat;
+  background-position: 3% 3%, 97% 3%;
+}
+
+reveal body{
+  
+}
+
+
+/* Styles for titles */
+.reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+  color: #555555;
+  font-family: "Alegreya Sans SC", sans-serif;
+  word-spacing: 0.2em;
+  font-weight: 500;
+  letter-spacing: 0.0em;
+}
+
+/* some colors for title slides */
+.reveal .fucsia > h1 { color: #C0249B; }
+.reveal .white > h1,
+.reveal .white > h2 { color: white; }
+.reveal .black > h1,
+.reveal .black > h2 { color: black; }
+.reveal .gray10 > h1,
+.reveal .gray10 > h2 { color: #1A1A1A;}
+.reveal .gray20 > h1,
+.reveal .gray20 > h2 { color: #333333;}
+.reveal .blued > h1,
+.reveal .blued > h2 { color: #13103e; }
+
+.reveal .left  > h1,
+.reveal .left  > h2 { text-align: left; }
+.reveal .right > h1,
+.reveal .right > h2 { text-align: right; }
+
+.reveal h2 { padding-bottom: 0.55em; }
+
+/* Styles for text p li */
+.reveal p, .reveal li {
+  color: #555555;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 100;
+  font-size: 70%;
+  text-align : justify;
+  letter-spacing: 0;
+}
+.reveal p { padding-top: 0.55em; padding-bottom: 0.55em;}
+.reveal code { color: #41b6c4;}
+.reveal figcaption { 
+  color: #969696;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 100;
+  font-size: 50%;
+  letter-spacing: 0;
+  
+}
+
+
+/* ul li lists with more space */
+.reveal section ul { padding-top: 0.55em; padding-bottom: 0.55em; list-style: none; font-size: 70%;}
+.reveal section li { padding: 0.5em; }
+.reveal section li:before {
+  content: "\f101"; /* FontAwesome Unicode */
+  font-family: FontAwesome;
+  display: inline-block;
+  margin-left: -1.5em; /* same as padding-left set on li */
+  width: 1.5em; /* same as padding-left set on li */
+}
+
+.reaveal a{ 
+  font-family: "Open Sans", sans-serif;
+  font-weight: 100;
+  font-size: 20%;
+}
+
+
+/* nested lists */
+.reveal section ul li ul {padding-top: 0em; padding-bottom: 0em;}
+
+/* code */
+.reveal code { font-family: "Fira Mono"; font-size: 80%;}
+.reveal pre code { max-height: 700px; }
+
+/* img */
+.reveal section img {
+  border: none;
+  margin: 0;
+}
+
+.reveal section .imgnone {
+  margin: none;
+  background: none;
+  border: none;
+  box-shadow: none;
+}
+
+/* progress */
+.reveal .progress {
+  height: 4px;
+}
+
+.reveal .progress span {
+  /*background: #0868ac;*/
+  background: #C0249B;
+}
+
+/* columns */
+#left {
+  left:-8.33%;
+  text-align: left;
+  float: left;
+  width:50%;
+  z-index:-10;
+  font-size: 60%;
+}
+
+#right {
+  left:31.25%;
+  top: 75px;
+  float: right;
+  text-align: right;
+  z-index:-10;
+  width:50%;
+  font-size: 60%;
+}
+
+.reveal .size_bg_70 {
+   background-size:70%;
+}
+
+.reveal .size_bg_50 {
+   background-size:50%;
+}
+
+.reveal .size_bg_30 {
+   background-size:30%;
+}
+
+
+.centeR {
+  display:block; 
+  border:none; 
+  margin:auto;
+}
+.reveal .img_c{
+  background-size: 10%;
+  background-repeat: no-repeat;
+  background-position: 50% 70%;
+}
+.reveal .img_gif{
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+}
+
+.reveal  h1, .reveal h2 {
+  color: #555555;
+  font-family: "Alegreya Sans SC", sans-serif;
+  word-spacing: 0.2em;
+  font-weight: 300;
+  font-size: 150%;
+  letter-spacing: 0.0em;
+}
+
+.reveal .author{
+  font-family: "Alegreya Sans SC", sans-serif;
+  font-size: 60%;
+}
+.reveal .subtitle {
+  font-family: "Alegreya Sans SC", sans-serif;
+  font-size: 80%;
+}
+.reveal .date {
+  font-family: "Alegreya Sans SC", sans-serif;
+  font-size: 50%;
+}
+
+
+.reveal section .leaflet-popup-content {
+    font: 10px;
+}
+
+.reveal section .leaflet-control {
+  font-family: "Alegreya Sans SC", sans-serif;
+  font-size: 40%;
+  opacity: 1;
+  
+}
+
+
+/*atribution map*/
+.reveal section .leaflet-control-attribution {
+  font-family: "Alegreya Sans SC", sans-serif;
+  font-size: 20%;
+  
+  
+}
+
+
+.reveal section .leaflet-control-layers{
+  font-family: "Alegreya Sans SC", sans-serif;
+  font-size: 30%;
+  opacity: 1;
+  
+}
+
+.reveal section .mapboxgl-ctrl-attrib-inner{
+    font-family: "Alegreya Sans SC", sans-serif;
+  font-size: 30%;
+}
+.reveal section .legendTitle{
+    font-family: "Alegreya Sans SC", sans-serif;
+  font-size: 60%;
+}
+
+.reveal .subtitle > p{
+  color: #555555;
+  font-family: "Alegreya Sans SC", sans-serif;
+  word-spacing: 0.2em;
+  font-weight: 500;
+  letter-spacing: 0.0em;
+  font-size: 20%
+}
+.reveal .orange > h6{ color: #015d52;}
+.reveal .red > h5 { color: red; }
+/*
+https://softwarefromnorth.blogspot.com/2016/02/revealjs-with-backgound-image-and.html
+
+*/
