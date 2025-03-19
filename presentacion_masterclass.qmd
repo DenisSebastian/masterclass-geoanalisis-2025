@@ -76,7 +76,7 @@ suppressPackageStartupMessages(library(stringdist))
 
 <!-- </center> -->
 
-# ¿Es importante el territorio en la gestión en Políticas Públicas?
+# ¿Es importante el territorio en la gestión de Políticas Públicas?
 
 ## 
 
@@ -84,8 +84,15 @@ suppressPackageStartupMessages(library(stringdist))
 ::: {.column .p_small width="45%"}
 **El espacio no es neutro:**
 
--   Las decisiones afectan de manera diferenciada a los territorios.
--   La cercanía a servicios, infraestructuras y factores ambientales impacta la calidad de vida.
+- Las decisiones de política pública generan impactos diferenciados según el territorio, afectando de manera desigual a comunidades urbanas y rurales.
+
+- La distribución de servicios esenciales, infraestructuras y recursos naturales define
+oportunidades y brechas en el acceso a educación, salud y empleo.
+
+- Factores ambientales como la calidad del aire, el acceso a espacios verdes y la exposición a riesgos naturales influyen directamente en el bienestar de las personas.
+
+-	El análisis espacial permite visibilizar estas desigualdades, optimizando la planificación y asignación de recursos para lograr mayor equidad territorial.
+
 :::
 
 ::: {.column .p_small width="10%"}
