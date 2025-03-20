@@ -567,7 +567,7 @@ ggplot() +
 ```
 :::
 
-## Relaciones con Nivel Socioeconómicos con Delitos
+## Relaciones de Nivel Socioeconómicos con Delitos
 
 <center>
 
