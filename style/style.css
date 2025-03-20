@@ -245,7 +245,7 @@
   float: right;
   text-align: right;
   z-index:-10;
-  width:50%;
+  width:40%;
   font-size: 60%;
 }
 
@@ -288,6 +288,15 @@
   text-align: justify;
 }
 
+.reveal .p_small_c{
+  color:#525252;
+  padding-top: 0.55em;
+  padding-bottom: 0.55em;
+  font-family: "Roboto", sans-serif;
+  font-size: 60%;
+  text-align: center;
+}
+
 .reveal .p_small_tabset{
   font-size: 80%;
 }
@@ -298,11 +307,11 @@
 
 .reveal  .tex_center p{
   color:black;
-  font-weight: 400;
+  font-weight: 100;
   padding-top: 0.55em;
   padding-bottom: 0.55em;
   font-family: "Roboto", sans-serif;
-  font-size: 100%;
+  font-size: 40%;
   text-align: center;
 }
 
