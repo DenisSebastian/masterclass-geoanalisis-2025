@@ -135,7 +135,7 @@ suppressPackageStartupMessages(library(stringdist))
 
 :::::: columns
 ::: {.column .p_small width="35%"}
--   **DUOC:** Medir si existe relación de la deserción respecto al la distacia del domicio del alumno a las sedes
+-   **DUOC:** Medir si existe relación de la deserción estudiantil respecto a la distacia del domicilio del alumno a las sedes DUOC.
 
 ![](images/DUOC_logo.png){fig-align="center" width="100"} ![](images/geocoding.png){fig-align="center" width="300"}
 :::
@@ -237,9 +237,9 @@ knitr::include_url("maps/geo_uni.html", height = "500px")
 ::: {.column .p_small width="50%"}
 **Caso 2: Plan de Seguridad Comunal para la Municipalidad de Las Condes (2017)**
 
--   Identificar zonas de riesgos de delios y focalizar planes de prevención
--   Evaluear la efectividad de los iniciativas de control (cámaras, lumniaria)
--   Medir relaciones de los delitos variables sociodemográficas
+- Identificar zonas de riesgos de delitos y focalizar planes de prevención
+- Evaluar la efectividad de los iniciativas de control (cámaras, ilumniaria, casetas, ect.)
+- Medir relaciones de los delitos variables sociodemográficas como desempleo, hacinamiento, nivelsocioeconómico, etc.
 :::
 
 ::: {.column width="5%"}
@@ -641,15 +641,24 @@ Master of Data Science y Magister en Inteligencia Artificial FIC-UAI.
 :::
 ::::::
 
-# Bibliografía
+# Bibliografía y Recursos
+
+
 
 ## 
+
+
+<br>
+<br>
+
+**Recursos**
+
+- Repositorio de [Datos y Códigos](https://alumnosuaicl-my.sharepoint.com/:f:/g/personal/denis_berroeta_uai_cl/EjECaA5JPMVPhYMmbH4ExQ0BbULc6iCN1QKflFuhlvd0gQ?e=qSlTnu) usados en el Taller.
 
 <br>
 
 **Bibliografía**
 
-<br>
 
 ::: {#refs}
 :::
