@@ -98,11 +98,14 @@ suppressPackageStartupMessages(library(stringdist))
 
 ::::: columns
 ::: {.column .p_small width="55%"}
--   **Tipos de datos espaciales:**
-    -   Puntos (ubicaciones específicas, eventos)
-    -   Líneas (calles, ríos)
-    -   Polígonos (zonas administrativas)
-    -   Ráster (imágenes satelitales, modelos de elevación)
+
+**Tipos de datos espaciales:**
+
+- Puntos (ubicaciones específicas, eventos)
+- Líneas (calles, ríos)
+- Polígonos (zonas administrativas)
+- Ráster (imágenes satelitales, modelos de elevación)
+
 :::
 
 ::: {.column width="45%"}
@@ -114,12 +117,15 @@ suppressPackageStartupMessages(library(stringdist))
 
 ::::: columns
 ::: {.column .p_small width="40%"}
--   **Software de Análisis Espacial:**
-    -   **R Project**
-    -   Python
-    -   QGIS o Argis
 
-<center>![](images/r.jpeg){fig-align="center" width="100"} <br> ![](images/sf_logo.gif){fig-align="center" width="100"}</center>
+**Software de Análisis Espacial:**
+
+- **R Project**
+- Python
+- QGIS o Argis
+
+<center>![](images/r.jpeg){fig-align="center" width="100"}  +  ![](images/sf_logo.gif){fig-align="center" width="80"}</center>
+
 :::
 
 ::: {.column width="60%"}
@@ -239,7 +245,7 @@ knitr::include_url("maps/geo_uni.html", height = "500px")
 
 - Identificar zonas de riesgos de delitos y focalizar planes de prevención
 - Evaluar la efectividad de los iniciativas de control (cámaras, ilumniaria, casetas, ect.)
-- Medir relaciones de los delitos variables sociodemográficas como desempleo, hacinamiento, nivelsocioeconómico, etc.
+- Medir relaciones de los delitos con variables sociodemográficas como desempleo, hacinamiento, nivelsocioeconómico, etc.
 :::
 
 ::: {.column width="5%"}
@@ -502,7 +508,8 @@ Estos indicadores están vinculados a un territorio y suelen ser utilizados para
 
 :::::: columns
 ::: {.column .p_small width="50%"}
-**Indicador de Escolaridad del jefe de hogar (IEJ)** [CIT-UAI](https://cit.uai.cl/)
+**Indicador de Escolaridad del jefe de hogar (IEJ)**.  
+[Centro de Inteligencia Territorial - UAI](https://cit.uai.cl/)
 
 Para la construcción de este indicador se utilizó el promedio de años de estudio de jefes de hogar (EJH), que es una variable censal numérica (“JH_ESC_P”, en tabla de personas del censo 2017) que registra el nivel del curso más alto aprobado, medida en años sucesivos desde la enseñanza básica hasta estudios de postgrado.
 
@@ -655,7 +662,8 @@ Master of Data Science y Magister en Inteligencia Artificial FIC-UAI.
 
 - Repositorio de [Datos y Códigos](https://alumnosuaicl-my.sharepoint.com/:f:/g/personal/denis_berroeta_uai_cl/EjECaA5JPMVPhYMmbH4ExQ0BbULc6iCN1QKflFuhlvd0gQ?e=qSlTnu) usados en el Taller.
 
-<br>
+- [Centro de Inteligencia Territorial - UAI](https://cit.uai.cl/)
+
 
 **Bibliografía**
 
