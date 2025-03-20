@@ -1,6 +1,123 @@
 {
     "sources": [
         {
+            "author": [
+                {
+                    "family": "Sabatini",
+                    "given": "Francisco"
+                }
+            ],
+            "container-title": "Revista Centro de Investigación Social",
+            "id": "sabatini2002segregacion",
+            "issued": {
+                "date-parts": [
+                    [
+                        2002
+                    ]
+                ]
+            },
+            "page": "18-23",
+            "title": "La segregación de los pobres en las ciudades: Un tema crı́tico para chile",
+            "title-short": "La segregación de los pobres en las ciudades",
+            "type": "article-journal",
+            "volume": "1"
+        },
+        {
+            "author": [
+                {
+                    "family": "Ruiz-Tagle",
+                    "given": "Javier"
+                },
+                {
+                    "family": "López",
+                    "given": "Ernesto"
+                }
+            ],
+            "container-title": "EURE (Santiago)",
+            "id": "ruiz2014estudio",
+            "issue": "119",
+            "issued": {
+                "date-parts": [
+                    [
+                        2014
+                    ]
+                ]
+            },
+            "page": "25-48",
+            "publisher": "SciELO Chile",
+            "title": "El estudio de la segregación residencial en santiago de chile: Revisión crı́tica de algunos problemas metodológicos y conceptuales",
+            "title-short": "El estudio de la segregación residencial en santiago de chile",
+            "type": "article-journal",
+            "volume": "40"
+        },
+        {
+            "author": [
+                {
+                    "family": "Agostini",
+                    "given": "Claudio A"
+                },
+                {
+                    "family": "Hojman",
+                    "given": "Daniel"
+                },
+                {
+                    "family": "Román",
+                    "given": "Alonso"
+                },
+                {
+                    "family": "Valenzuela",
+                    "given": "Luis"
+                }
+            ],
+            "container-title": "Eure (Santiago)",
+            "id": "agostini2016segregacion",
+            "issue": "127",
+            "issued": {
+                "date-parts": [
+                    [
+                        2016
+                    ]
+                ]
+            },
+            "page": "159-184",
+            "publisher": "SciELO Chile",
+            "title": "Segregación residencial de ingresos en el gran santiago, 1992-2002: Una estimación robusta",
+            "title-short": "Segregación residencial de ingresos en el gran santiago, 1992-2002",
+            "type": "article-journal",
+            "volume": "42"
+        },
+        {
+            "author": [
+                {
+                    "family": "Agostini",
+                    "given": "Claudio A"
+                },
+                {
+                    "family": "Brown",
+                    "given": "Philip H"
+                },
+                {
+                    "family": "Góngora",
+                    "given": "Diana Paola"
+                }
+            ],
+            "container-title": "Estudios de economı́a",
+            "id": "agostini2008distribucion",
+            "issue": "1",
+            "issued": {
+                "date-parts": [
+                    [
+                        2008
+                    ]
+                ]
+            },
+            "page": "79-110",
+            "publisher": "SciELO Chile",
+            "title": "Distribución espacial de la pobreza en chile",
+            "type": "article-journal",
+            "volume": "35"
+        },
+        {
             "DOI": "10.1111/j.2517-6161.1948.tb00012.x",
             "ISSN": "2517-6161",
             "URL": "https://onlinelibrary.wiley.com/doi/abs/10.1111/j.2517-6161.1948.tb00012.x",

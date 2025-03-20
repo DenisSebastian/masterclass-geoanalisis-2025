@@ -249,7 +249,6 @@ Denis Berroeta G.
 <li>Caso 1: Geocodificación Masiva de Direcciones</li>
 <li>Caso 2: Análisis de Focos de Delitos y Prevención</li>
 <li>Caso 3: Construcción de Indicadores Territoriales para Políticas Públicas</li>
-<li>Caso 4: Autocorrelación Espacial y Segregación</li>
 <li>Conclusiones</li>
 </ul>
 </div><div class="column" style="width:5%;">
@@ -262,15 +261,10 @@ Denis Berroeta G.
 </figure>
 </div>
 </div></div>
-<!-- <center> -->
-<!-- ```{r fig.align='center'} -->
-<!-- knitr::include_url("html/ST_021/RGB_roi.html", height = "500px") -->
-<!-- ``` -->
-<!-- </center> -->
 </section></section>
 <section>
-<section id="es-importante-el-territorio-en-la-gestión-en-políticas-públicas" class="title-slide slide level1 center">
-<h1>¿Es importante el territorio en la gestión en Políticas Públicas?</h1>
+<section id="es-importante-el-territorio-en-la-gestión-de-políticas-públicas" class="title-slide slide level1 center">
+<h1>¿Es importante el territorio en la gestión de Políticas Públicas?</h1>
 
 </section>
 <section id="section-1" class="slide level2 center">
@@ -279,8 +273,10 @@ Denis Berroeta G.
 <div class="column p_small" style="width:45%;">
 <p><strong>El espacio no es neutro:</strong></p>
 <ul>
-<li>Las decisiones afectan de manera diferenciada a los territorios.</li>
-<li>La cercanía a servicios, infraestructuras y factores ambientales impacta la calidad de vida.</li>
+<li><p>Las decisiones de política pública generan impactos diferenciados según el territorio, afectando de manera desigual a comunidades urbanas y rurales.</p></li>
+<li><p>La distribución de servicios esenciales, infraestructuras y recursos naturales define oportunidades y brechas en el acceso a educación, salud y empleo.</p></li>
+<li><p>Factores ambientales como la calidad del aire, el acceso a espacios verdes y la exposición a riesgos naturales influyen directamente en el bienestar de las personas.</p></li>
+<li><p>El análisis espacial permite visibilizar estas desigualdades, optimizando la planificación y asignación de recursos para lograr mayor equidad territorial.</p></li>
 </ul>
 </div><div class="column p_small" style="width:10%;">
 
@@ -357,11 +353,7 @@ Denis Berroeta G.
 <ul>
 <li><strong>DUOC:</strong> Medir si existe relación de la deserción respecto al la distacia del domicio del alumno a las sedes</li>
 </ul>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="images/DUOC_logo.png" class="quarto-figure quarto-figure-center" width="100"></p>
-</figure>
-</div>
+<p><img data-src="images/DUOC_logo.png" class="quarto-figure quarto-figure-center" width="100"> <img data-src="images/geocoding.png" class="quarto-figure quarto-figure-center" width="300"></p>
 </div><div class="column" style="width:5%;">
 
 </div><div class="column" style="width:60%;">
@@ -511,7 +503,7 @@ Denis Berroeta G.
 <span id="cb3-2"><a href=""></a>violencia_df <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="at">file =</span> <span class="st">"data/casos_violencia.rds"</span>)</span>
 <span id="cb3-3"><a href=""></a></span>
 <span id="cb3-4"><a href=""></a></span>
-<span id="cb3-5"><a href=""></a><span class="fu">head</span>(violencia_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-5"><a href=""></a><span class="fu">head</span>(violencia_df, <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     id        x       y
 4423  1 351501.2 6301276
@@ -519,7 +511,11 @@ Denis Berroeta G.
 4837  3 351866.6 6301303
 4844  4 351303.1 6301359
 4916  5 351536.6 6301306
-5125  6 357105.9 6301723</code></pre>
+5125  6 357105.9 6301723
+5127  7 356879.9 6301687
+5188  8 356293.7 6304416
+5223  9 357074.3 6301821
+5240 10 356273.3 6302438</code></pre>
 </div>
 </div>
 </div>
@@ -770,15 +766,11 @@ First 10 features:
 <div class="column p_small" style="width:50%;">
 <p><strong>Indicador de Escolaridad del jefe de hogar (IEJ)</strong> <a href="https://cit.uai.cl/">CIT-UAI</a></p>
 <p>Para la construcción de este indicador se utilizó el promedio de años de estudio de jefes de hogar (EJH), que es una variable censal numérica (“JH_ESC_P”, en tabla de personas del censo 2017) que registra el nivel del curso más alto aprobado, medida en años sucesivos desde la enseñanza básica hasta estudios de postgrado.</p>
-<p>Se calcula el promedio de esta variable para todos los jefes de hogar en cada manzana. Esta variable es representativa del <strong>capital cultural de cada hogar</strong> y está altamente correlacionada con el nivel de ingresos en Chile (<span class="citation" data-cites="agostini2016segregacion">Agostini et al. (<a href="#/section-10" role="doc-biblioref" onclick="">2016</a>)</span>).</p>
+<p>Se calcula el promedio de esta variable para todos los jefes de hogar en cada manzana. Esta variable es representativa del <strong>capital cultural de cada hogar</strong> y está altamente correlacionada con el nivel de ingresos en Chile (<span class="citation" data-cites="agostini2016segregacion">Agostini et al. (<a href="#/section-12" role="doc-biblioref" onclick="">2016</a>)</span>).</p>
 </div><div class="column" style="width:5%;">
 
 </div><div class="column p_small" style="width:45%;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="images/back_homev04-1.png" class="quarto-figure quarto-figure-center" width="600"></p>
-</figure>
-</div>
+<p><img data-src="images/back_homev04-1.png" class="quarto-figure quarto-figure-center" width="600"><img data-src="images/logo-mbht.png" id="right" class="quarto-figure quarto-figure-right" width="120"></p>
 </div></div>
 </section>
 <section id="cálculo-de-indicador-ejh" class="slide level2 center">
@@ -868,34 +860,77 @@ First 10 features:
 </div>
 </center>
 </section></section>
+<section>
 <section id="conclusiones" class="title-slide slide level1 center">
 <h1>Conclusiones</h1>
-<ul>
-<li>La transformación de datos espaciales nos permite extraer información estratégica para la toma de decisiones:
-<ul>
+
+</section>
+<section id="conclusiones-1" class="slide level2 center">
+<h2>Conclusiones</h2>
+<div class="columns">
+<div class="column p_small" style="width:50%;">
+<p>La transformación de datos espaciales nos permite extraer información estratégica para la toma de decisiones:</p>
+<ol type="1">
 <li>De direcciones a coordenadas para análisis geoespacial.</li>
 <li>De puntos a densidades con KDE para identificar patrones de distribución.</li>
 <li>De ráster a polígonos para construir indicadores territoriales.</li>
-</ul></li>
-<li>Detectamos relaciones espaciales relevantes que impactan en la planificación y distribución de recursos.</li>
-<li>Las decisiones basadas en análisis espacial mejoran la eficiencia en la gestión pública.</li>
-<li>Integrar el geoanálisis en políticas públicas permite diseñar intervenciones más equitativas y sustentables.</li>
-<li><strong>El territorio es el escenario donde ocurren los hechos</strong>, y comprenderlo nos permite proyectar mejores soluciones para el futuro.</li>
-</ul>
-</section>
+</ol>
+<p>Detectamos relaciones espaciales relevantes que impactan en la planificación y distribución de recursos. Las decisiones basadas en análisis espacial mejoran la eficiencia en la gestión pública. Integrar el geoanálisis en políticas públicas permite diseñar intervenciones más equitativas y sustentables.</p>
+</div><div class="column" style="width:5%;">
 
-<section id="preguntas" class="title-slide slide level1 center">
+</div><div class="column p_small" style="width:45%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/back_homev04-1.png" class="quarto-figure quarto-figure-center" width="600"></p>
+</figure>
+</div>
+</div></div>
+</section>
+<section id="section-10" class="slide level2 center">
+<h2></h2>
+<p><strong>El territorio es el escenario donde ocurren los hechos</strong>, y comprenderlo nos permite proyectar mejores soluciones para el futuro.</p>
+</section></section>
+<section id="preguntas" class="title-slide slide level1 center" data-background-image="images/automatizacion-de-reportes-con-r-web.jpeg" data-background-size="100%" data-background-position="center">
 <h1>Preguntas</h1>
 
 </section>
 
 <section>
+<section id="presentador" class="title-slide slide level1 center">
+<h1>Presentador</h1>
+
+</section>
+<section id="section-11" class="slide level2 center">
+<h2></h2>
+<div class="columns">
+<div class="column p_small" style="width:35%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/denis_circle.png" class="quarto-figure quarto-figure-center" width="600"></p>
+</figure>
+</div>
+</div><div class="column" style="width:10%;">
+
+</div><div class="column tex_center" style="width:45%;">
+<p><br> <br> <br></p>
+<center>
+<h6 class="p_small_c" id="denis-berroeta-gonzález"><strong>Denis Berroeta González</strong></h6>
+</center>
+<p>email: <a href="mailto:denis.berroeta@uai.cl" class="email">denis.berroeta@uai.cl</a>.<br>
+linkedin: <a href="https://www.linkedin.com/in/denis-berroeta/">denis-berroeta</a></p>
+<p><em>Coordinador de Investigación Centro de Inteligencia Territorial UAI</em>. PhD (c) en Ciencia de Datos FIC-UAI.<br>
+Master of Data Science y Magister en Inteligencia Artificial FIC-UAI.</p>
+</div></div>
+</section></section>
+<section>
 <section id="bibliografía" class="title-slide slide level1 center">
 <h1>Bibliografía</h1>
 
 </section>
-<section id="section-10" class="slide level2 smaller scrollable">
+<section id="section-12" class="slide level2 smaller scrollable">
 <h2></h2>
+<p><br></p>
+<p><strong>Bibliografía</strong></p>
 <p><br></p>
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-agostini2016segregacion" class="csl-entry" role="listitem">

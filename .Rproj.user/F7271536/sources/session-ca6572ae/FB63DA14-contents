@@ -38,7 +38,7 @@ suppressPackageStartupMessages(library(stringdist))
 
 ```
 
-## {background-image="images/espacio_cop.png" background-size="85%" background-position="center"}
+##  {background-image="images/espacio_cop.png" background-size="85%" background-position="center"}
 
 # Agenda
 
@@ -52,7 +52,6 @@ suppressPackageStartupMessages(library(stringdist))
 -   Caso 1: Geocodificación Masiva de Direcciones
 -   Caso 2: Análisis de Focos de Delitos y Prevención
 -   Caso 3: Construcción de Indicadores Territoriales para Políticas Públicas
--   Caso 4: Autocorrelación Espacial y Segregación
 -   Conclusiones
 :::
 
@@ -66,16 +65,6 @@ suppressPackageStartupMessages(library(stringdist))
 :::
 ::::::
 
-<!-- <center> -->
-
-<!-- ```{r fig.align='center'} -->
-
-<!-- knitr::include_url("html/ST_021/RGB_roi.html", height = "500px") -->
-
-<!-- ``` -->
-
-<!-- </center> -->
-
 # ¿Es importante el territorio en la gestión de Políticas Públicas?
 
 ## 
@@ -84,15 +73,13 @@ suppressPackageStartupMessages(library(stringdist))
 ::: {.column .p_small width="45%"}
 **El espacio no es neutro:**
 
-- Las decisiones de política pública generan impactos diferenciados según el territorio, afectando de manera desigual a comunidades urbanas y rurales.
+-   Las decisiones de política pública generan impactos diferenciados según el territorio, afectando de manera desigual a comunidades urbanas y rurales.
 
-- La distribución de servicios esenciales, infraestructuras y recursos naturales define
-oportunidades y brechas en el acceso a educación, salud y empleo.
+-   La distribución de servicios esenciales, infraestructuras y recursos naturales define oportunidades y brechas en el acceso a educación, salud y empleo.
 
-- Factores ambientales como la calidad del aire, el acceso a espacios verdes y la exposición a riesgos naturales influyen directamente en el bienestar de las personas.
+-   Factores ambientales como la calidad del aire, el acceso a espacios verdes y la exposición a riesgos naturales influyen directamente en el bienestar de las personas.
 
--	El análisis espacial permite visibilizar estas desigualdades, optimizando la planificación y asignación de recursos para lograr mayor equidad territorial.
-
+-   El análisis espacial permite visibilizar estas desigualdades, optimizando la planificación y asignación de recursos para lograr mayor equidad territorial.
 :::
 
 ::: {.column .p_small width="10%"}
@@ -131,16 +118,11 @@ oportunidades y brechas en el acceso a educación, salud y empleo.
     -   **R Project**
     -   Python
     -   QGIS o Argis
-    
-<center>
-![](images/r.jpeg){fig-align="center" width="100"} <br>
-![](images/sf_logo.gif){fig-align="center" width="100"}
-</center>
 
+<center>![](images/r.jpeg){fig-align="center" width="100"} <br> ![](images/sf_logo.gif){fig-align="center" width="100"}</center>
 :::
 
 ::: {.column width="60%"}
-
 ![](images/tipos_vect.png){fig-align="center" width="600"}
 :::
 :::::
@@ -155,7 +137,7 @@ oportunidades y brechas en el acceso a educación, salud y empleo.
 ::: {.column .p_small width="35%"}
 -   **DUOC:** Medir si existe relación de la deserción respecto al la distacia del domicio del alumno a las sedes
 
-![](images/DUOC_logo.png){fig-align="center" width="100"}
+![](images/DUOC_logo.png){fig-align="center" width="100"} ![](images/geocoding.png){fig-align="center" width="300"}
 :::
 
 ::: {.column width="5%"}
@@ -255,10 +237,9 @@ knitr::include_url("maps/geo_uni.html", height = "500px")
 ::: {.column .p_small width="50%"}
 **Caso 2: Plan de Seguridad Comunal para la Municipalidad de Las Condes (2017)**
 
-- Identificar zonas de riesgos de delios y focalizar planes de prevención
-- Evaluear la efectividad de los iniciativas de control (cámaras, lumniaria)
-- Medir relaciones de los delitos variables sociodemográficas
-
+-   Identificar zonas de riesgos de delios y focalizar planes de prevención
+-   Evaluear la efectividad de los iniciativas de control (cámaras, lumniaria)
+-   Medir relaciones de los delitos variables sociodemográficas
 :::
 
 ::: {.column width="5%"}
@@ -300,7 +281,7 @@ $$
 violencia_df <- readRDS(file = "data/casos_violencia.rds")
 
 
-head(violencia_df)
+head(violencia_df, 10)
 ```
 
 ## Objeto Espacial
@@ -519,7 +500,7 @@ Estos indicadores están vinculados a un territorio y suelen ser utilizados para
 
 ## Indicador de Nivel Socioeconómico
 
-::: columns
+:::::: columns
 ::: {.column .p_small width="50%"}
 **Indicador de Escolaridad del jefe de hogar (IEJ)** [CIT-UAI](https://cit.uai.cl/)
 
@@ -532,14 +513,11 @@ Se calcula el promedio de esta variable para todos los jefes de hogar en cada ma
 :::
 
 ::: {.column .p_small width="45%"}
-![](images/back_homev04-1.png){fig-align="center" width="600"}
+![](images/back_homev04-1.png){fig-align="center" width="600"}![](images/logo-mbht.png){fig-align="right" width="120" #right}
 :::
-:::
-
+::::::
 
 ## Cálculo de Indicador EJH
-
-
 
 ::: {.panel-tabset .p_small_tabset}
 ## Lectura de "JH_ESC_P"
@@ -589,7 +567,6 @@ ggplot() +
 ```
 :::
 
-
 ## Relaciones con Nivel Socioeconómicos con Delitos
 
 <center>
@@ -600,25 +577,77 @@ knitr::include_url("maps/eij_windows.html", height = "500px")
 
 </center>
 
-
 # Conclusiones
 
-- La transformación de datos espaciales nos permite extraer información estratégica para la toma de decisiones:
-  - De direcciones a coordenadas para análisis geoespacial.
-  - De puntos a densidades con KDE para identificar patrones de distribución.
-  - De ráster a polígonos para construir indicadores territoriales.
-- Detectamos relaciones espaciales relevantes que impactan en la planificación y distribución de recursos.
-- Las decisiones basadas en análisis espacial mejoran la eficiencia en la gestión pública.
-- Integrar el geoanálisis en políticas públicas permite diseñar intervenciones más equitativas y sustentables.
-- **El territorio es el escenario donde ocurren los hechos**, y comprenderlo nos permite proyectar mejores soluciones para el futuro.
+##  Conclusiones
+
+:::::: columns
+::: {.column .p_small width="50%"}
+La transformación de datos espaciales nos permite extraer información estratégica para la toma de decisiones:
+
+1.  De direcciones a coordenadas para análisis geoespacial.
+2.  De puntos a densidades con KDE para identificar patrones de distribución.
+3.  De ráster a polígonos para construir indicadores territoriales.
+
+Detectamos relaciones espaciales relevantes que impactan en la planificación y distribución de recursos. Las decisiones basadas en análisis espacial mejoran la eficiencia en la gestión pública. Integrar el geoanálisis en políticas públicas permite diseñar intervenciones más equitativas y sustentables.
+:::
+
+::: {.column width="5%"}
+:::
+
+::: {.column .p_small width="45%"}
+![](images/back_homev04-1.png){fig-align="center" width="600"}
+:::
+::::::
+
+
+## 
+
+**El territorio es el escenario donde ocurren los hechos**, y comprenderlo nos permite proyectar mejores soluciones para el futuro.
+
+# Preguntas {background-image="images/automatizacion-de-reportes-con-r-web.jpeg" background-size="100%" background-position="center"}
+
+#  Presentador
+
+##  
+
+:::::: columns
+::: {.column .p_small width="35%"}
+
+![](images/denis_circle.png){fig-align="center" width="600"}
+:::
+
+::: {.column width="10%"}
+:::
+
+::: {.column .tex_center width="45%"}
+
+<br>
+<br>
+<br>
+
+<center>
+###### **Denis Berroeta González** {.p_small_c}
+</center>
+
+ email:  <denis.berroeta@uai.cl>.  
+ linkedin:  [denis-berroeta](https://www.linkedin.com/in/denis-berroeta/)
+
+_Coordinador de Investigación Centro de Inteligencia Territorial UAI_.  PhD (c) en Ciencia de Datos FIC-UAI.  
+Master of Data Science y Magister en Inteligencia Artificial FIC-UAI.   
 
 
 
-# Preguntas
+:::
+::::::
 
 # Bibliografía
 
 ## 
+
+<br>
+
+**Bibliografía**
 
 <br>
 
